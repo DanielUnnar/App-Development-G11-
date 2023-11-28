@@ -28,5 +28,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    "semi": ["off"],
+    "semi-style": ["error", "last"]
   }
 }
