@@ -2,20 +2,21 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import boardsData from '../../Resources/data.json';
-import styles from './BoardStyles'
+import styles from './BoardItemStyles'
 
 const YourComponent = () => {
   const { boards } = boardsData;
-
   const handleBoardPress = (boardId) => {
-    console.log('Board pressed', boardId);
     // Add your navigation or other actions here
+  };
+  const handleAddPress = () => {
+    <BoardCreate/>
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>The Toodler</Text>
-      <Pressable style={boards.boardItem} onPress={() => console.log("Hello World")}><Text style={styles.addBoard}>+</Text></Pressable>
+      <Pressable style={boards.boardItem} onPress={() => handleAddPress}><Text style={styles.addBoard}>+</Text></Pressable>
       {boards.map((board) => (
         <TouchableOpacity
           key={board.id}
