@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import YourComponent from './src/Components/boards/BoardItem'
+import BoardCreate from './src/components/boards/boardedit/boardcreate/BoardCreate';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <YourComponent />
+      <BoardCreate />
       <StatusBar style="auto" />
     </View>
   );
