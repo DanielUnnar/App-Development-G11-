@@ -1,6 +1,6 @@
 // YourComponent.js
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, ImageBackground, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import boardsData from '../../Resources/data.json';
 import styles from './BoardItemStyles'
 
@@ -23,19 +23,18 @@ const YourComponent = () => {
           onPress={() => handleBoardPress(board.id)}
           activeOpacity={0.7}
         >
-        <ImageBackground
-          key={board.id}
-          source={{ uri: board.thumbnailPhoto }}
-          style={styles.boardItem}
-        >
-          <View style={styles.textContainer}>
-            <Text style={styles.boardTitle}>{board.name}</Text>
-          </View>
-        </ImageBackground>
+          <ImageBackground
+            key={board.id}
+            source={{ uri: board.thumbnailPhoto }}
+            style={styles.boardItem}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.boardTitle}>{board.name}</Text>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
       ))}
     </ScrollView>
-
   );
 };
 

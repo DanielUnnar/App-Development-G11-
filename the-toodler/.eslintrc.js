@@ -30,5 +30,6 @@ module.exports = {
   rules: {
     semi: ['off'],
     'comma-dangle': ['off'],
+    indent: ['error', 2]
   }
 }
