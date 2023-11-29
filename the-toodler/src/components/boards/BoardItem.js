@@ -1,7 +1,7 @@
 // YourComponent.js
 import React from 'react';
 import { View, Text, ImageBackground, ScrollView, TouchableOpacity, Pressable } from 'react-native';
-import boardsData from '../../Resources/data.json';
+import boardsData from '../../resources/data.json';
 import styles from './BoardItemStyles'
 
 const YourComponent = () => {
