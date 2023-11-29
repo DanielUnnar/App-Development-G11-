@@ -1,7 +1,8 @@
 // YourComponent.js
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import boardsData from '../../resources/data.json';
+import { View, Text, ImageBackground, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import boardsData from '../../Resources/data.json';
+import styles from './BoardStyles'
 
 const YourComponent = () => {
   const { boards } = boardsData;
@@ -13,6 +14,8 @@ const YourComponent = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>The Toodler</Text>
+      <Pressable style={boards.boardItem} onPress={() => console.log("Hello World")}><Text style={styles.addBoard}>+</Text></Pressable>
       {boards.map((board) => (
         <TouchableOpacity
           key={board.id}
@@ -34,35 +37,5 @@ const YourComponent = () => {
 
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    paddingVertical: 50,
-    marginHorizontal: 20,
-  },
-  boardItem: {
-    width: 300,
-    height: 150,
-    marginVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, .5)',
-  },
-  boardTitle: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
 
 export default YourComponent;

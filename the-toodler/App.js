@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import YourComponent from './src/components/boards/BoardItem.js';
+import YourComponent from './src/Components/boards/BoardItem'
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffff',
+    backgroundColor: '#FFFDD0',
     
   },
 });
