@@ -25,7 +25,7 @@ function YourComponent ({navigation}) {
   }, []);
 
   const renderBoard = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => console.log(map1)}>
+    <TouchableOpacity key={item.id} onPress={() => console.log(item.id)}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
           <TouchableOpacity style={styles.modify}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>

@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFDD0',
+    backgroundColor: '#F5F5F5',
     paddingVertical: 50,
     marginHorizontal: 20,
   },
@@ -31,7 +31,6 @@ export default StyleSheet.create({
   addBoard: {
     fontSize: 40,
     fontWeight: 'bold',
-    border: 'solid',
     borderWidth: 2,
     paddingLeft: 30,
     paddingRight: 30,
@@ -41,6 +40,32 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
+  modifytext: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#fff',
+  },
+  deletetext: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#ff2400',
+  },
+  modify: {
+    marginBottom: 25,
+    marginLeft: 215,
+    alignSelf: 'stretch',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  delete: {
+    marginTop: 25,
+    marginLeft: 215,
+    alignSelf: 'stretch',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ff2400'
+  }
 });
