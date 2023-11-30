@@ -1,4 +1,3 @@
-// YourComponent.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground } from 'react-native';
 import data from '../../resources/data.json';
@@ -29,6 +28,8 @@ function YourComponent ({navigation}) {
   const addNewBoard = () => {
     navigation.navigate('Create Board', {boards: data.boards});
   }
+
+
 
   return (
     <View style={styles.container}>
