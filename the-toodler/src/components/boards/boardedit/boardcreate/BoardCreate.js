@@ -1,43 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './BoardCreateStyles'; // Import the styles
-import { FileSystem } from 'expo';
-import boardsData from '../../../../resources/data.json'
+import { useNavigation } from '@react-navigation/native'
 
-const { boards } = boardsData;
-
-const newID = () => {
-  const ids = boards.map((board) => board.id);
-  const maxID = Math.max(...ids);
-  return maxID + 1;
-}
-
-const BoardCreate = () => {
+function BoardCreate  ({route, navigation}) {
+  const {boards} = route.params
   const [boardName, setBoardName] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const ids = boards.map((board) => board.id)
+  const newID = Math.max(...ids)+1;
 
-  const handleSavePress = async () => {
-    const { boards } = boardsData;
-
-    const newBoard = {
-      id: newID(),
+  const handleSavePress = () => {
+    // Add {} behind 'Boards' and add the board there.
+    newBoard = {
+      id: newID,
       name: boardName,
-      thumbnailPhoto: thumbnailUrl,
-    };
-
-    const updatedBoards = [...boards, newBoard];
-
-    const updatedData = { boards: updatedBoards };
-
-    try {
-      await FileSystem.writeAsStringAsync(
-        FileSystem.documentDirectory + 'resources/data.json',
-        JSON.stringify(updatedData)
-      );
-    } catch (error) {
-      console.error(error);
+      thumbnailPhoto: thumbnailUrl
     }
-  };
+    boards.push(newBoard)
+    navigation.navigate('Boards', {boards: boards})
+  }
 
   return (
     <View>

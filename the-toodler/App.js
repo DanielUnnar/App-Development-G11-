@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import BoardCreate from './src/components/boards/boardedit/boardcreate/BoardCreate';
+import { StyleSheet, View } from 'react-native';
+import Routes from './src/routes/index';
 
-export default function App() {
+export default function App () {
   return (
     <View style={styles.container}>
-      <BoardCreate />
+      <Routes/> 
       <StatusBar style="auto" />
     </View>
   );
@@ -14,7 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFDD0',
+    backgroundColor: '#F5F5F5',
     
   },
 });
