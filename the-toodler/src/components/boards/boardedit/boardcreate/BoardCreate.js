@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './BoardCreateStyles'; // Import the styles
+import { useNavigation } from '@react-navigation/native'
 
-const BoardCreate = () => {
+function BoardCreate  ({route, navigation}) {
+  const {boards} = route.params
   const [boardName, setBoardName] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const ids = boards.map((board) => board.id)
+  const newID = Math.max(...ids)+1;
 
   const handleSavePress = () => {
-    // Save the board
+    // Add {} behind 'Boards' and add the board there.
+    newBoard = {
+      id: newID,
+      name: boardName,
+      thumbnailPhoto: thumbnailUrl
+    }
+    boards.push(newBoard)
+    navigation.navigate('Boards', {boards: boards})
   }
 
   return (

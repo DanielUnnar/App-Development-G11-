@@ -5,10 +5,9 @@ import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const YourComponent = () => {
+function YourComponent ({navigation}) {
   const [boards, setBoards] = useState([]);
 
-  const navigation = useNavigation();
 
   useEffect(() => {
     setBoards(data.boards);
@@ -28,7 +27,7 @@ const YourComponent = () => {
   );
 
   const addNewBoard = () => {
-    navigation.navigate('Create Board');
+    navigation.navigate('Create Board', {boards: data.boards});
   }
 
   return (
