@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, setState } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground } from 'react-native';
 import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
-import { useNavigation } from '@react-navigation/native';
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 function YourComponent ({navigation}) {
-  const [boards, setBoards] = useState([]);
   const map1 = data.boards.map(elem => {
     return {
       id: elem.id,
@@ -13,19 +12,18 @@ function YourComponent ({navigation}) {
       thumbnailPhoto: elem.thumbnailPhoto
     };
   });
+  const [boards, setBoards] = useState(map1);
   function handleDeletePress(item) {
-    map1.map((elem, index, arr) => {
-      if (elem.id === item) {
-        arr.splice(index, 1)
+    newboard = []
+    boards.map((elem, index, arr) => {
+      if (elem.id !== item) {
+        newboard.push(elem)
       }
     })
+    setBoards(newboard)
   }
-  useEffect(() => {
-    setBoards(data.boards);
-  }, []);
-
   const renderBoard = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => console.log(item.id)}>
+    <TouchableOpacity key={item.id} onPress={() => console.log(boards)}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
           <TouchableOpacity style={styles.modify}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
@@ -37,7 +35,7 @@ function YourComponent ({navigation}) {
   );
 
   const addNewBoard = () => {
-    navigation.navigate('Create Board', {boards: data.boards});
+    navigation.navigate('Create Board', {boards: boards});
   }
 
 
@@ -50,9 +48,7 @@ function YourComponent ({navigation}) {
         renderItem={renderBoard}
         keyExtractor={item => item.id.toString()}
       />
-
     </View>
   );
 };
-
 export default YourComponent;
