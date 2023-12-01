@@ -64,11 +64,10 @@ function Boards ({navigation}) {
     navigation.navigate('Modify Board', {boards: boards, item: item});
   };
 
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={addNewBoard} style={styles.buttonLayout}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
-      <FlatList
+      <FlatList style={styles.boardList}
         data={boards}
         renderItem={renderBoard}
         keyExtractor={item => item.id.toString()}

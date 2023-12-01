@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles'
 
-function Lists({ navigation, route }) {
+function Lists ({ navigation, route }) {
   const { boardid, listmap } = route.params;
   const [lists, setLists] = useState(listmap);
   const [boardlist, setBoardList] = useState(listmap);
 
-  function findLists() {
+  function findLists () {
     const rightlists = []
     listmap.map((elem, index, arr) => {
       if (elem.boardId === boardid) {
@@ -25,7 +25,7 @@ function Lists({ navigation, route }) {
     <TouchableOpacity>
       <View>
 
-        <Text style={{borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center'}}>
+        <Text style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 7, padding: 15, textAlign: 'center', justifyContent: 'center' }}>
           {item.name}
         </Text>
         <Text>
@@ -35,9 +35,13 @@ function Lists({ navigation, route }) {
     </TouchableOpacity>
   );
 
+  const AddNewList = () => {
+    navigation.navigate('Create List', { lists: lists});
+  };
+
   return (
     <View style={styles.container}>
-      <Button title="Add List" onPress={() => {console.log("Hello")}} />
+      <TouchableOpacity onPress={ AddNewList } style={styles.AddListButton}><Text style={styles.AddListText}>+</Text></TouchableOpacity>
       <FlatList
         data={boardlist}
         renderItem={renderList}
