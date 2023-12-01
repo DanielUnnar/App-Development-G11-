@@ -32,7 +32,7 @@ function Lists ({ navigation, route }) {
 
   useEffect(() => {
     findLists();
-  }, [route.params]); // Trigger effect when route params change
+  }, []);
 
   const renderList = ({ item }) => (
     <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }}>

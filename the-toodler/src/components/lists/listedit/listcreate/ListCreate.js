@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, TextInput } from 'react-native';
 import styles from './ListCreateStyles'
 import { UploadTask } from 'expo-file-system';
@@ -7,20 +7,25 @@ function ListCreate ({ navigation, route }) {
   const { lists, boardlist, boardID, updateLists, updateBoardList } = route.params;
   const [listName, setListName] = useState('');
   const [colorchoice, setColor] = useState('')
-  const ids = lists.map((list) => list.id);
-  const newID = Math.max(...ids) + 1;
+  let idCounter = Math.max(...lists.map(list => list.id), ...boardlist.map(item => item.id)) + 1;
+  
+  useEffect(() => {
+    correctLists();
+  }, []);
+
+  function correctLists() {
+    const correctLists = []
+    lists.map((elem, index, arr) => {
+      correctLists.push(elem)
+    })
+    updateLists(correctLists)
+  }
 
   const handleSavePress = () => {
-    const newlists = []
-    const newboardlists = []
-    lists.map((elem, index, arr) => {
-      newlists.push(elem)
-    })
-    boardlist.map((elem, index, arr) => {
-      newboardlists.push(elem)
-    })
+    const newlists = [...lists]
+    const newboardlists = [...boardlist]
     newList = {
-      id: newID,
+      id: idCounter++,
       name: listName,
       color: colorchoice,
       boardId: boardID
@@ -31,6 +36,7 @@ function ListCreate ({ navigation, route }) {
     updateBoardList(newboardlists)
     navigation.goBack('Lists')
   }
+  
   return (
     <View>
       <Text style={styles.title}>Create a new List</Text>
