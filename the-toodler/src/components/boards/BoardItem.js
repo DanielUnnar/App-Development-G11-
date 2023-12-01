@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground, scrollvie } from 'react-native';
 import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
-import deleteboard from './boardedit/boarddelete/BoardDelete'
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 function Boards ({navigation}) {
@@ -39,11 +38,9 @@ function Boards ({navigation}) {
     navigation.navigate('Create Board', {boards: boards});
   }
 
-
-
   return (
     <View style={styles.container}>
-      <Button title="Add Board" onPress={addNewBoard} />
+      <TouchableOpacity onPress={addNewBoard} style={styles.buttonLayout}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
       <FlatList
         data={boards}
         renderItem={renderBoard}

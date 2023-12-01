@@ -67,5 +67,20 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ff2400'
-  }
+  },
+  buttonLayout: {
+    borderRadius: 10,
+    borderWidth: 2,
+    padding: 2,
+    borderColor: '#1111',
+    backgroundColor: '#3cbc',
+    width: 100,
+
+  },
+  buttonText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#2e4053',
+    textAlign: 'center',
+  },
 });
