@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
 
 function Lists({ navigation, route }) {
@@ -16,26 +16,17 @@ function Lists({ navigation, route }) {
     });
     setBoardList(rightlists);
   }
+
   function handleModifyPress(item) {
     navigation.navigate('Modify List', { lists: allLists, list: item, boardlists: boardlist, updateLists: setLists, updateboardlists: setBoardList });
   }
 
   function handleDeletePress(item) {
-    const newlist = [];
-    allLists.map((elem, index, arr) => {
-      if (elem.id !== item) {
-        newlist.push(elem);
-      }
-    });
+    const newlist = allLists.filter((elem) => elem.id !== item);
     setLists(newlist);
-    updateLists(newlist)
+    updateLists(newlist);
 
-    const newboardlist = [];
-    boardlist.map((elem, index, arr) => {
-      if (elem.id !== item) {
-        newboardlist.push(elem);
-      }
-    });
+    const newboardlist = boardlist.filter((elem) => elem.id !== item);
     setBoardList(newboardlist);
   }
 
@@ -44,19 +35,18 @@ function Lists({ navigation, route }) {
   }, [route.params]); // Trigger effect when route params change
 
   const renderList = ({ item }) => (
-
-    <TouchableOpacity style={{borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center'}}>
-      <View style = {{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-        <TouchableOpacity onPress={() => { handleModifyPress(item) }}>
-          <Text style = {{textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 10, paddingRight: 10}}>
+    <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }}>
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+        <TouchableOpacity onPress={() => handleModifyPress(item)}>
+          <Text style={{ textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 10, paddingRight: 10 }}>
             +
           </Text>
         </TouchableOpacity>
-        <Text style = {{textAlign: 'center'}}>
+        <Text style={{ textAlign: 'center' }}>
           {item.name}
         </Text>
-        <TouchableOpacity onPress={() => {handleDeletePress(item.id)}}>
-          <Text style = {{textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 17, paddingRight: 17}}>
+        <TouchableOpacity onPress={() => handleDeletePress(item.id)}>
+          <Text style={{ textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 17, paddingRight: 17 }}>
             -
           </Text>
         </TouchableOpacity>
@@ -70,8 +60,7 @@ function Lists({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={ AddNewList } style={styles.AddListButton}><Text style={styles.AddListText}>+</Text></TouchableOpacity>
-
+      <TouchableOpacity onPress={AddNewList} style={styles.AddListButton}><Text style={styles.AddListText}>+</Text></TouchableOpacity>
       <FlatList
         data={boardlist}
         renderItem={renderList}
