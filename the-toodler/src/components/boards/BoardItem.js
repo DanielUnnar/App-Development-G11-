@@ -1,18 +1,19 @@
-import React, { useState, useEffect, setState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground } from 'react-native';
 import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
+import deleteboard from './boardedit/boarddelete/BoardDelete'
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
-function YourComponent ({navigation}) {
-  const map1 = data.boards.map(elem => {
+function Boards ({navigation}) {
+  const boardmap = data.boards.map(elem => {
     return {
       id: elem.id,
       name: elem.name,
       thumbnailPhoto: elem.thumbnailPhoto
     };
   });
-  const [boards, setBoards] = useState(map1);
+  const [boards, setBoards] = useState(boardmap);
   function handleDeletePress(item) {
     newboard = []
     boards.map((elem, index, arr) => {
@@ -23,7 +24,7 @@ function YourComponent ({navigation}) {
     setBoards(newboard)
   }
   const renderBoard = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => console.log(boards)}>
+    <TouchableOpacity key={item.id} onPress={() => navigation.navigate()}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
           <TouchableOpacity style={styles.modify}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
@@ -51,4 +52,4 @@ function YourComponent ({navigation}) {
     </View>
   );
 };
-export default YourComponent;
+export default Boards;
