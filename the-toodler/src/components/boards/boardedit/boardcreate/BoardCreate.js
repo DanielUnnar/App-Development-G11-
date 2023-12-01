@@ -15,7 +15,7 @@ function BoardCreate ({ route, navigation }) {
       id: newID,
       name: boardName,
       thumbnailPhoto: thumbnailUrl,
-      description
+      description: description
     }
     boards.push(newBoard)
     navigation.navigate('Boards', { boards })

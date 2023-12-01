@@ -3,7 +3,22 @@ import { View, Text, FlatList, Button, TouchableOpacity, TextInput } from 'react
 import styles from './ListCreateStyles'
 
 function ListCreate ({ navigation, route }) {
-  const { listmap, boardid } = route.params;
+  const { lists, boardID } = route.params;
+  const [listName, setListName] = useState('');
+  const [colorchoice, setColor] = useState('')
+  const ids = lists.map((list) => list.id);
+  const newID = Math.max(...ids) + 1;
+
+  const handleSavePress = () => {
+    newList = {
+      id: newID,
+      name: listName,
+      color: colorchoice,
+      boardId: boardID
+    }
+    lists.push(newList)
+    navigation.navigate('Lists', { lists })
+  }
   return (
     <View>
       <Text style={styles.title}>Create a new List</Text>
@@ -16,7 +31,7 @@ function ListCreate ({ navigation, route }) {
         placeholder="Color"
         style={styles.input}
       />
-      <TouchableOpacity style={styles.saveButton} onPress={() => console.log('Hello')}>
+      <TouchableOpacity style={styles.saveButton} onPress={() => handleSavePress()}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
     </View>

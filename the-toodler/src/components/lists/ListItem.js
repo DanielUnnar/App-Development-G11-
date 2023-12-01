@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
 
-
 function Lists({ navigation, route }) {
   const { boardid, boardlists, updateLists } = route.params;
   const [allLists, setLists] = useState(boardlists);
@@ -64,7 +63,7 @@ function Lists({ navigation, route }) {
   );
 
   const AddNewList = () => {
-    navigation.navigate('Create List', { lists: lists});
+    navigation.navigate('Create List', { lists: allLists, boardID: boardid });
   };
 
   return (
