@@ -69,11 +69,10 @@ function Boards ({navigation, route}) {
     navigation.navigate('Lists', {boardid: item, boardlists: lists, taskmap: taskmap, updateLists: setLists})
   }
 
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={addNewBoard} style={styles.buttonLayout}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
-      <FlatList
+      <FlatList style={styles.boardList}
         data={boards}
         renderItem={renderBoard}
         keyExtractor={item => item.id.toString()}

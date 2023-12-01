@@ -87,4 +87,7 @@ export default StyleSheet.create({
     color: '#2e4053',
     textAlign: 'center',
   },
+  boardList: {
+    marginTop: 10,
+  },
 });

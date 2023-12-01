@@ -5,26 +5,17 @@ import Boards from '../components/boards/BoardItem';
 import BoardCreate from '../components/boards/boardedit/boardcreate/BoardCreate';
 import BoardModify from '../components/boards/boardedit/boardmodify/BoardModify';
 import Lists from '../components/lists/ListItem';
+import ListCreate from '../components/lists/listedit/listcreate/ListCreate';
 const Stack = createStackNavigator();
 
-const mytheme = {
-  dark: false,
-  colors: {
-    primary: 'rgb(255, 45, 85)',
-    background: '#1111',
-    card: '#3cbc',
-    text: '#fff',
-    border: 'rgb(199, 199, 204)',
-  },
-};
-
 const Routes = () => (
-  <NavigationContainer theme={mytheme}>
+  <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name='Boards' component={Boards}/>
       <Stack.Screen name='Create Board' component={BoardCreate}/>
       <Stack.Screen name='Lists' component={Lists}/>
       <Stack.Screen name='Modify Board' component={BoardModify}/>
+      <Stack.Screen name='Create List' component={ListCreate}/>
     </Stack.Navigator>
   </NavigationContainer>
 )

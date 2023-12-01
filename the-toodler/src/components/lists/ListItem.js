@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
 
+
 function Lists({ navigation, route }) {
   const { boardid, boardlists, updateLists } = route.params;
   const [allLists, setLists] = useState(boardlists);
@@ -42,6 +43,7 @@ function Lists({ navigation, route }) {
   }, [route.params]); // Trigger effect when route params change
 
   const renderList = ({ item }) => (
+
     <TouchableOpacity style={{borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center'}}>
       <View style = {{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
         <TouchableOpacity>
@@ -61,9 +63,14 @@ function Lists({ navigation, route }) {
     </TouchableOpacity>
   );
 
+  const AddNewList = () => {
+    navigation.navigate('Create List', { lists: lists});
+  };
+
   return (
     <View style={styles.container}>
-      <Button title="Add List" onPress={() => console.log("Hello")} />
+      <TouchableOpacity onPress={ AddNewList } style={styles.AddListButton}><Text style={styles.AddListText}>+</Text></TouchableOpacity>
+
       <FlatList
         data={boardlist}
         renderItem={renderList}
