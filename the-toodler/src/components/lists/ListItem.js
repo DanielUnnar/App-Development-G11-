@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
 
-function Lists({ navigation, route }) {
+function Lists ({ navigation, route }) {
   const { boardid, boardlists, updateLists } = route.params;
   const [allLists, setLists] = useState(boardlists);
   const [boardlist, setBoardList] = useState(boardlists);
 
-  function findLists() {
+  function findLists () {
     const rightlists = [];
     allLists.map((elem, index, arr) => {
       if (elem.boardId === boardid) {
@@ -17,11 +17,11 @@ function Lists({ navigation, route }) {
     setBoardList(rightlists);
   }
 
-  function handleModifyPress(item) {
+  function handleModifyPress (item) {
     navigation.navigate('Modify List', { lists: allLists, list: item, boardlists: boardlist, updateLists: setLists, updateboardlists: setBoardList });
   }
 
-  function handleDeletePress(item) {
+  function handleDeletePress (item) {
     const newlist = allLists.filter((elem) => elem.id !== item);
     setLists(newlist);
     updateLists(newlist);
@@ -55,7 +55,7 @@ function Lists({ navigation, route }) {
   );
 
   const AddNewList = () => {
-    navigation.navigate('Create List', { lists: allLists, boardlist: boardlist, boardID: boardid, updateLists: updateLists, updateBoardList: setBoardList });
+    navigation.navigate('Create List', { lists: allLists, boardlist, boardID: boardid, updateLists, updateBoardList: setBoardList });
   };
 
   return (

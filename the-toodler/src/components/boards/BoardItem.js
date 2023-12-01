@@ -5,7 +5,7 @@ import styles from './BoardItemStyles';
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
-function Boards ({navigation, route}) {
+function Boards ({ navigation, route }) {
   const boardmap = data.boards.map(elem => {
     return {
       id: elem.id,
@@ -30,12 +30,12 @@ function Boards ({navigation, route}) {
       isFinished: elem.isFinished,
       listId: elem.listId
     }
-  }); 
+  });
 
   const [boards, setBoards] = useState(boardmap);
   const [lists, setLists] = useState(listmap);
 
-  function handleDeletePress(item) {
+  function handleDeletePress (item) {
     const newboard = []
     boards.map((elem, index, arr) => {
       if (elem.id !== item) {
@@ -46,27 +46,27 @@ function Boards ({navigation, route}) {
   };
 
   const renderBoard = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => {boardList(item.id)}}>
+    <TouchableOpacity key={item.id} onPress={() => { boardList(item.id) }}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
-          <TouchableOpacity style={styles.modify} onPress={() => {modifyBoard(item)}}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.modify} onPress={() => { modifyBoard(item) }}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
           <Text style={styles.boardTitle}>{item.name}</Text>
           <Text style={styles.description}>{item.description}</Text>
-          <TouchableOpacity style={styles.delete} onPress={() => {handleDeletePress(item.id)}} ><Text style={styles.deletetext}>Delete</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.delete} onPress={() => { handleDeletePress(item.id) }} ><Text style={styles.deletetext}>Delete</Text></TouchableOpacity>
         </View>
       </ImageBackground>
     </TouchableOpacity>
   );
 
   const addNewBoard = () => {
-    navigation.navigate('Create Board', {boards: boards});
+    navigation.navigate('Create Board', { boards });
   };
 
   const modifyBoard = (item) => {
-    navigation.navigate('Modify Board', {boards: boards, item: item});
+    navigation.navigate('Modify Board', { boards, item });
   };
   const boardList = (item) => {
-    navigation.navigate('Lists', {boardid: item, boardlists: lists, taskmap: taskmap, updateLists: setLists})
+    navigation.navigate('Lists', { boardid: item, boardlists: lists, taskmap, updateLists: setLists })
   }
 
   return (
