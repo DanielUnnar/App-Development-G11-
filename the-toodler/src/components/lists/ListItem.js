@@ -41,7 +41,7 @@ function Lists({ navigation, route }) {
 
   useEffect(() => {
     findLists();
-  }, [route.params]); // Trigger effect when route params change
+  }, []);
 
   const renderList = ({ item }) => (
 
