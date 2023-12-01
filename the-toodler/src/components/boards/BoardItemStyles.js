@@ -53,7 +53,7 @@ export default StyleSheet.create({
     color: '#ff2400',
   },
   modify: {
-    marginBottom: 25,
+    marginBottom: 15,
     marginLeft: 215,
     alignSelf: 'stretch',
     borderRadius: 10,
@@ -61,12 +61,16 @@ export default StyleSheet.create({
     borderColor: '#fff'
   },
   delete: {
-    marginTop: 25,
+    marginTop: 10,
     marginLeft: 215,
     alignSelf: 'stretch',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ff2400'
+  },
+  description: {
+    fontSize: 16,
+    color: 'white'
   },
   buttonLayout: {
     borderRadius: 10,
