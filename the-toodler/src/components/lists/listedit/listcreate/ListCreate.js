@@ -11,16 +11,24 @@ function ListCreate ({ navigation, route }) {
   const newID = Math.max(...ids) + 1;
 
   const handleSavePress = () => {
+    const newlists = []
+    const newboardlists = []
+    lists.map((elem, index, arr) => {
+      newlists.push(elem)
+    })
+    boardlist.map((elem, index, arr) => {
+      newboardlists.push(elem)
+    })
     newList = {
       id: newID,
       name: listName,
       color: colorchoice,
       boardId: boardID
     }
-    lists.push(newList)
-    boardlist.push(newList)
-    updateLists(lists)
-    updateBoardList(boardlist)
+    newlists.push(newList)
+    newboardlists.push(newList)
+    updateLists(newlists)
+    updateBoardList(newboardlists)
     navigation.goBack('Lists')
   }
   return (
