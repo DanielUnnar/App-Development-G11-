@@ -6,8 +6,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#e1e1e1',
-    paddingVertical: 50,
-    marginHorizontal: 20,
+    paddingVertical: 0,
+
   },
   boardItem: {
     width: 300,

@@ -1,5 +1,12 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#e1e1e1',
+    paddingVertical: 50,
+  },
   AddListButton: {
     borderRadius: 10,
     borderWidth: 2,
