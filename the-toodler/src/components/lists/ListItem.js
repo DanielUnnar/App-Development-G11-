@@ -17,6 +17,9 @@ function Lists({ navigation, route }) {
     });
     setBoardList(rightlists);
   }
+  function handleModifyPress(item) {
+    navigation.navigate('Modify List', { lists: allLists, list: item, boardlists: boardlist, updateLists: setLists, updateboardlists: setBoardList });
+  }
 
   function handleDeletePress(item) {
     const newlist = [];
@@ -46,7 +49,7 @@ function Lists({ navigation, route }) {
 
     <TouchableOpacity style={{borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center'}}>
       <View style = {{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { handleModifyPress(item) }}>
           <Text style = {{textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 10, paddingRight: 10}}>
             +
           </Text>
