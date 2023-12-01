@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, ImageBackground, scrollvie } from 'react-native';
 import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
-function Boards ({navigation}) {
+function Boards ({navigation, route}) {
   const boardmap = data.boards.map(elem => {
     return {
       id: elem.id,
@@ -29,9 +30,10 @@ function Boards ({navigation}) {
       isFinished: elem.isFinished,
       listId: elem.listId
     }
-  });
+  }); 
 
   const [boards, setBoards] = useState(boardmap);
+  const [lists, setLists] = useState(listmap);
 
   function handleDeletePress(item) {
     const newboard = []
@@ -44,7 +46,7 @@ function Boards ({navigation}) {
   };
 
   const renderBoard = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => navigation.navigate('Lists', {boardid: item.id, listmap: listmap, taskmap: taskmap})}>
+    <TouchableOpacity key={item.id} onPress={() => {boardList(item.id)}}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
           <TouchableOpacity style={styles.modify} onPress={() => {modifyBoard(item)}}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
@@ -63,6 +65,9 @@ function Boards ({navigation}) {
   const modifyBoard = (item) => {
     navigation.navigate('Modify Board', {boards: boards, item: item});
   };
+  const boardList = (item) => {
+    navigation.navigate('Lists', {boardid: item, boardlists: lists, taskmap: taskmap, updateLists: setLists})
+  }
 
 
   return (

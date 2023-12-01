@@ -6,14 +6,14 @@ export default function App () {
   return (
     <View style={styles.container}>
       <Routes/> 
-      <StatusBar style="auto" />
+      <StatusBar/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF'
   },
 });
