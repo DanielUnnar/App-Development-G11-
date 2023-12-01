@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 100,
+    marginTop: 50,
   },
   input: {
     borderWidth: 1,
