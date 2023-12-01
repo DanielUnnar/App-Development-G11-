@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity, TextInput } from 'react-native';
 import styles from './ListCreateStyles'
+import { UploadTask } from 'expo-file-system';
 
 function ListCreate ({ navigation, route }) {
-  const { lists, boardID } = route.params;
+  const { lists, boardlist, boardID, updateLists, updateBoardList } = route.params;
   const [listName, setListName] = useState('');
   const [colorchoice, setColor] = useState('')
   const ids = lists.map((list) => list.id);
@@ -17,7 +18,10 @@ function ListCreate ({ navigation, route }) {
       boardId: boardID
     }
     lists.push(newList)
-    navigation.navigate('Lists', { lists })
+    boardlist.push(newList)
+    updateLists(lists)
+    updateBoardList(boardlist)
+    navigation.goBack('Lists')
   }
   return (
     <View>
@@ -25,13 +29,17 @@ function ListCreate ({ navigation, route }) {
       <TextInput
         placeholder="List name (Max 20 Char)"
         style={styles.input}
+        value={listName}
+        onChangeText={(text) => setListName(text)}
         maxLength={20}
       />
       <TextInput
         placeholder="Color"
         style={styles.input}
+        value={colorchoice}
+        onChangeText={(text) => setColor(text)}
       />
-      <TouchableOpacity style={styles.saveButton} onPress={() => handleSavePress()}>
+      <TouchableOpacity style={styles.saveButton} onPress={handleSavePress}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
     </View>

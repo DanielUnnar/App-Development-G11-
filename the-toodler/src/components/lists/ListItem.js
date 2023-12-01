@@ -34,7 +34,6 @@ function Lists({ navigation, route }) {
       }
     });
     setBoardList(newboardlist);
-    navigation.navigate('Boards', { newlists: newlist });
   }
 
   useEffect(() => {
@@ -63,7 +62,7 @@ function Lists({ navigation, route }) {
   );
 
   const AddNewList = () => {
-    navigation.navigate('Create List', { lists: allLists, boardID: boardid });
+    navigation.navigate('Create List', { lists: allLists, boardlist: boardlist, boardID: boardid, updateLists: updateLists, updateBoardList: setBoardList });
   };
 
   return (
