@@ -7,6 +7,7 @@ import BoardModify from '../components/boards/boardedit/boardmodify/BoardModify'
 import Lists from '../components/lists/ListItem';
 import ListCreate from '../components/lists/listedit/listcreate/ListCreate';
 import ListModify from '../components/lists/listedit/listmodify/ListModify';
+import Tasks from '../components/tasks/TaskItem';
 const Stack = createStackNavigator();
 
 const Routes = () => (
@@ -18,6 +19,7 @@ const Routes = () => (
       <Stack.Screen name='Modify Board' component={BoardModify}/>
       <Stack.Screen name='Create List' component={ListCreate}/>
       <Stack.Screen name='Modify List' component={ListModify}/>
+      <Stack.Screen name='Tasks' component={Tasks}/>
     </Stack.Navigator>
   </NavigationContainer>
 )

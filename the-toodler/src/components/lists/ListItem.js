@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
 
 function Lists ({ navigation, route }) {
-  const { boardid, boardlists, updateLists } = route.params;
+  const { boardid, boardlists, updateLists, tasks, updateTasks } = route.params;
   const [allLists, setLists] = useState(boardlists);
   const [boardlist, setBoardList] = useState(boardlists);
 
@@ -29,13 +29,16 @@ function Lists ({ navigation, route }) {
     const newboardlist = boardlist.filter((elem) => elem.id !== item);
     setBoardList(newboardlist);
   }
+  const listtask = (item) => {
+    navigation.navigate('Tasks', {listid: item, tasks: tasks, updateTasks: updateTasks })
+  }
 
   useEffect(() => {
     findLists();
   }, []);
 
   const renderList = ({ item }) => (
-    <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }}>
+    <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }} onPress={() => {listtask(item.id)}}>
       <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
         <TouchableOpacity onPress={() => handleModifyPress(item)}>
           <Text style={{ textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 10, paddingRight: 10 }}>

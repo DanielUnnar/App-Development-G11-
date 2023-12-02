@@ -34,6 +34,7 @@ function Boards ({ navigation, route }) {
 
   const [boards, setBoards] = useState(boardmap);
   const [lists, setLists] = useState(listmap);
+  const [tasks, setTasks] = useState(taskmap)
 
   function handleDeletePress (item) {
     const newboard = []
@@ -66,7 +67,7 @@ function Boards ({ navigation, route }) {
     navigation.navigate('Modify Board', { boards, item });
   };
   const boardList = (item) => {
-    navigation.navigate('Lists', { boardid: item, boardlists: lists, taskmap, updateLists: setLists })
+    navigation.navigate('Lists', { boardid: item, boardlists: lists, tasks: tasks, updateLists: setLists, updateTasks: setTasks })
   }
 
   return (
