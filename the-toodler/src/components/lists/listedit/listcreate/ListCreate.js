@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import styles from './ListCreateStyles'
-import { UploadTask } from 'expo-file-system';
 
 function ListCreate ({ navigation, route }) {
   const { lists, boardlist, boardID, updateLists, updateBoardList } = route.params;

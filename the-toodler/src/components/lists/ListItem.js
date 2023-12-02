@@ -7,6 +7,7 @@ function Lists ({ navigation, route }) {
   const { boardid, boardlists, updateLists, tasks, updateTasks } = route.params;
   const [allLists, setLists] = useState(boardlists);
   const [boardlist, setBoardList] = useState(boardlists);
+  const [listtasks, setTasks] = useState(tasks)
 
   function findLists () {
     const rightlists = [];
@@ -31,7 +32,7 @@ function Lists ({ navigation, route }) {
     setBoardList(newboardlist);
   }
   const listtask = (item) => {
-    navigation.navigate('Tasks', {listid: item, tasks: tasks, updateTasks: updateTasks })
+    navigation.navigate('Tasks', {listid: item, tasks: listtasks, updateTasks: updateTasks, updateListTasks: setTasks, boardid: boardid, allLists: allLists })
   }
 
   useEffect(() => {

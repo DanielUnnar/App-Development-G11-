@@ -18,7 +18,7 @@ function ListModify ({ navigation, route }) {
           boardId: elem.boardId
         });
       }
-      newlist.push(elem);
+      else {newlist.push(elem);}
     });
     const newboardlist = [];
     boardlists.map((elem, index, arr) => {
@@ -30,7 +30,7 @@ function ListModify ({ navigation, route }) {
     });
     updateLists(newlist);
     updateboardlists(newboardlist);
-    navigation.goBack('Lists');
+    navigation.goBack();
   };
 
   return (
