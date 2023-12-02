@@ -37,31 +37,21 @@ function Boards ({ navigation, route }) {
   const [lists, setLists] = useState(listmap);
   const [tasks, setTasks] = useState(taskmap)
 
-  function handleDeletePress (item) {
-    const newboard = [];
-    const newlist = [];
-    const newtask = [];
-    boards.map((elem, index, arr) => {
-      if (elem.id !== item) {
-        newboard.push(elem)
-      }
-    })
-    lists.map((elem) => {
-      if (elem.boardId !== item) {
-        newlist.push(elem)
-      }
-      tasks.map((ele) => {
-        if (elem.boardId !== item) {
-          if (elem.id !== ele.listId) {
-            newtask.push(ele)
-          }
-        }
-      })
-      setTasks(newtask)
-    })
-    setBoards(newboard)
-    setLists(newlist)
-  };
+  function handleDeletePress(item) {
+    const newboard = boards.filter((elem) => elem.id !== item);
+    const newlist = lists.filter((elem) => elem.boardId !== item);
+    setBoards(newboard);
+    setLists(newlist);
+    handleTaskDeletion(item);
+  }
+
+  function handleTaskDeletion(deletedBoardId) {
+    const newtasks = tasks.filter((elem) => {
+      const correspondingList = lists.find((list) => list.boardId === deletedBoardId);
+      return correspondingList ? elem.listId !== correspondingList.id : true;
+    });
+    setTasks(newtasks);
+  }
 
   const renderBoard = ({ item }) => (
     <TouchableOpacity key={item.id} onPress={() => { boardList(item.id) }}>

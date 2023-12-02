@@ -33,7 +33,7 @@ function ListCreate ({ navigation, route }) {
     newboardlists.push(newList)
     updateLists(newlists)
     updateBoardList(newboardlists)
-    navigation.goBack('Lists')
+    navigation.goBack()
   }
   
   return (
