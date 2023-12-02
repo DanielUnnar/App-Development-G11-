@@ -4,7 +4,7 @@ import styles from './ListItemStyles';
 import { Icon } from '@rneui/themed';
 
 function Lists ({ navigation, route }) {
-  const { boardid, boardlists, updateLists } = route.params;
+  const { boardid, boardlists, updateLists, tasks, updateTasks } = route.params;
   const [allLists, setLists] = useState(boardlists);
   const [boardlist, setBoardList] = useState(boardlists);
 
@@ -30,14 +30,17 @@ function Lists ({ navigation, route }) {
     const newboardlist = boardlist.filter((elem) => elem.id !== item);
     setBoardList(newboardlist);
   }
+  const listtask = (item) => {
+    navigation.navigate('Tasks', {listid: item, tasks: tasks, updateTasks: updateTasks })
+  }
 
   useEffect(() => {
     findLists();
   }, []);
 
   const renderList = ({ item }) => (
-    <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }}>
-      <View style={styles.listContainer}>
+    <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }} onPress={() => {listtask(item.id)}}>
+      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
         <TouchableOpacity onPress={() => handleModifyPress(item)}>
           <Icon name="edit" color='#4A90E2' style={styles.editButton} />
 
