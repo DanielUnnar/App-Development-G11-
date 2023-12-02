@@ -22,5 +22,32 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#2e4053',
     textAlign: 'center',
-  }
+  },
+  deleteButton: {
+    textAlign: 'center',
+    borderColor: '#FF3B30',
+    borderWidth: 3,
+    borderRadius: 20,
+    paddingLeft: 17,
+    paddingRight: 17,
+  },
+  editButton: {
+    textAlign: 'center',
+    borderColor: '#4A90E2',
+    borderWidth: 3,
+    borderRadius: 20,
+    paddingLeft: 17,
+    paddingRight: 17,
+  },
+  listContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  listText: {
+    textAlign: 'center',
+    fontSize: 15,
+    fontWeight: 'bold',
+
+  },
 });

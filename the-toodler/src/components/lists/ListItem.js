@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './ListItemStyles';
+import { Icon } from '@rneui/themed';
 
 function Lists ({ navigation, route }) {
   const { boardid, boardlists, updateLists } = route.params;
@@ -36,19 +37,17 @@ function Lists ({ navigation, route }) {
 
   const renderList = ({ item }) => (
     <TouchableOpacity style={{ borderColor: item.color, borderWidth: 5, backgroundColor: 'white', borderRadius: 40, margin: 20, padding: 20, textAlign: 'center', justifyContent: 'center', width: 350 }}>
-      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+      <View style={styles.listContainer}>
         <TouchableOpacity onPress={() => handleModifyPress(item)}>
-          <Text style={{ textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 10, paddingRight: 10 }}>
-            +
-          </Text>
+          <Icon name="edit" color='#4A90E2' style={styles.editButton} />
+
         </TouchableOpacity>
-        <Text style={{ textAlign: 'center' }}>
+        <Text style={styles.listText}>
           {item.name}
         </Text>
         <TouchableOpacity onPress={() => handleDeletePress(item.id)}>
-          <Text style={{ textAlign: 'center', borderWidth: 3, fontSize: 40, borderRadius: 20, paddingLeft: 17, paddingRight: 17 }}>
-            -
-          </Text>
+          <Icon name="delete" color='#FF3B30' style={styles.deleteButton} />
+
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

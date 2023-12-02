@@ -4,6 +4,7 @@ import data from '../../resources/data.json';
 import styles from './BoardItemStyles';
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { Icon } from '@rneui/themed';
 
 function Boards ({ navigation, route }) {
   const boardmap = data.boards.map(elem => {
@@ -49,10 +50,12 @@ function Boards ({ navigation, route }) {
     <TouchableOpacity key={item.id} onPress={() => { boardList(item.id) }}>
       <ImageBackground key={item.id} source={{ uri: item.thumbnailPhoto }} style={styles.boardItem}>
         <View style={styles.textContainer}>
-          <TouchableOpacity style={styles.modify} onPress={() => { modifyBoard(item) }}><Text style={styles.modifytext}>Modify</Text></TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.modify} onPress={() => { modifyBoard(item) }}><Icon name="edit" color='#4A90E2' style={styles.modifytext} size={25} /></TouchableOpacity>
+            <TouchableOpacity style={styles.delete} onPress={() => { handleDeletePress(item.id) }} ><Icon name="delete" color='#FF3B30' style={styles.deletetext} /></TouchableOpacity>
+          </View>
           <Text style={styles.boardTitle}>{item.name}</Text>
           <Text style={styles.description}>{item.description}</Text>
-          <TouchableOpacity style={styles.delete} onPress={() => { handleDeletePress(item.id) }} ><Text style={styles.deletetext}>Delete</Text></TouchableOpacity>
         </View>
       </ImageBackground>
     </TouchableOpacity>

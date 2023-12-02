@@ -37,7 +37,7 @@ function ListModify ({ navigation, route }) {
     <View>
       <TextInput
         value={name}
-        onChangeText={setName}
+        onChangeText={(text) => setName(text)}
         style={styles.input}
         placeholder='List name (Max 20 Char)'
         maxLength={20}
@@ -45,9 +45,9 @@ function ListModify ({ navigation, route }) {
       />
       <TextInput
         value={color}
-        onChangeText={setColor}
+        onChangeText={(text) => setColor(text.toLocaleLowerCase())}
         style={styles.input}
-        placeholder='Color (HEX)'
+        placeholder='Color'
 
       />
       <Button title="Update List" onPress={handleUpdate} />

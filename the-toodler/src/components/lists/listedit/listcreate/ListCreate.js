@@ -51,7 +51,7 @@ function ListCreate ({ navigation, route }) {
         placeholder="Color"
         style={styles.input}
         value={colorchoice}
-        onChangeText={(text) => setColor(text)}
+        onChangeText={(text) => setColor(text.toLocaleLowerCase())}
       />
       <TouchableOpacity style={styles.saveButton} onPress={handleSavePress}>
         <Text style={styles.saveButtonText}>Save</Text>

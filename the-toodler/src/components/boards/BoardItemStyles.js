@@ -21,6 +21,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, .5)',
+    paddingBottom: 52,
   },
   boardTitle: {
     color: 'white',
@@ -43,31 +44,14 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   modifytext: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#fff',
+    size: 50,
   },
   deletetext: {
     fontSize: 20,
     textAlign: 'center',
     color: '#ff2400',
   },
-  modify: {
-    marginBottom: 15,
-    marginLeft: 215,
-    alignSelf: 'stretch',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#fff'
-  },
-  delete: {
-    marginTop: 10,
-    marginLeft: 215,
-    alignSelf: 'stretch',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ff2400'
-  },
+
   description: {
     fontSize: 16,
     color: 'white'
@@ -89,5 +73,33 @@ export default StyleSheet.create({
   },
   boardList: {
     marginTop: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 15,
+  },
+
+  modify: {
+    marginBottom: 10,
+    marginRight: 90,
+    width: 100,
+    alignSelf: 'stretch',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+
+  },
+
+  delete: {
+    marginBottom: 10,
+    width: 100,
+    alignSelf: 'stretch',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ff2400',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+
   },
 });
