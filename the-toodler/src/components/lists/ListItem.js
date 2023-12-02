@@ -24,10 +24,22 @@ function Lists ({ navigation, route }) {
   }
 
   function handleDeletePress (item) {
-    const newlist = allLists.filter((elem) => elem.id !== item);
+    const newlist = [];
+    const newtask = [];
+    allLists.map((elem) => {
+      if (elem.id !== item) {
+        newlist.push(elem)
+      }
+    })
+    tasks.map((elem) => {
+      if (elem.listId !== item) {
+        newtask.push(elem)
+      }
+    })
     setLists(newlist);
     updateLists(newlist);
-
+    setTasks(newtask)
+    updateTasks(newtask)
     const newboardlist = boardlist.filter((elem) => elem.id !== item);
     setBoardList(newboardlist);
   }

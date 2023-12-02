@@ -38,13 +38,29 @@ function Boards ({ navigation, route }) {
   const [tasks, setTasks] = useState(taskmap)
 
   function handleDeletePress (item) {
-    const newboard = []
+    const newboard = [];
+    const newlist = [];
+    const newtask = [];
     boards.map((elem, index, arr) => {
       if (elem.id !== item) {
         newboard.push(elem)
       }
     })
+    lists.map((elem) => {
+      if (elem.boardId !== item) {
+        newlist.push(elem)
+      }
+      tasks.map((ele) => {
+        if (elem.boardId !== item) {
+          if (elem.id !== ele.listId) {
+            newtask.push(ele)
+          }
+        }
+      })
+      setTasks(newtask)
+    })
     setBoards(newboard)
+    setLists(newlist)
   };
 
   const renderBoard = ({ item }) => (
