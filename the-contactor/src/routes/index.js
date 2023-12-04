@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const Routes = () => (
   <NavigationContainer>
     <Stack.Navigator initialRouteName='Contact List'>
-        <Stack.Screen name='Contact List' component={ContactListView}/>
+        <Stack.Screen name='Contacts' component={ContactListView}/>
         <Stack.Screen name='Contact Details' component={ContactDetailsView}/>
         <Stack.Screen name='Create Contact' component={CreateContactView}/>
         <Stack.Screen name='Modify Contact' component={ModifyContactView}/>
