@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
+import styles from './ContactListViewStyles';
 
-function ContactListView() {
+function ContactListView({navigation, route}) {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
+        <Text style={styles.text}>Open up App.js to start working on your </Text>
+        <Button title='Press Me' onPress={() => navigation.navigate('Create Contact')}/>
       </View>
     );
   }

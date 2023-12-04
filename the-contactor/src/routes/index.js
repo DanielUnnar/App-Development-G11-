@@ -5,12 +5,11 @@ import ContactListView from '../views/contact-list-view/ContactListView';
 import ContactDetailsView from '../views/contact-details-view/ContactDetailsView';
 import CreateContactView from '../views/contact-create-view/CreateContactView';
 import ModifyContactView from '../views/contact-modify-view/ContactModifyView';
-
 const Stack = createStackNavigator();
 
 const Routes = () => (
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Contact List'>
         <Stack.Screen name='Contact List' component={ContactListView}/>
         <Stack.Screen name='Contact Details' component={ContactDetailsView}/>
         <Stack.Screen name='Create Contact' component={CreateContactView}/>
