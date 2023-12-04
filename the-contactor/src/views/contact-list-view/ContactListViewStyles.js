@@ -8,7 +8,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
+    paddingLeft: 10,
+  },
+  view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 400,
+    height: 100,
+    borderWidth: 1,
+    borderRadius: 30,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  image: {
+    width: 75,
+    height: 75,
+    marginRight: 25,
   }
 });
 
