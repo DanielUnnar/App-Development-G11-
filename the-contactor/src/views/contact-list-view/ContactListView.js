@@ -30,6 +30,29 @@ function ContactListView({ navigation }) {
     data,
   }));
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredContacts, setFilteredContacts] = useState(null);
+
+  const handleSearch = (query) => {
+    const lowerCaseQuery = query.toLowerCase();
+  
+    if (lowerCaseQuery.trim() === '') {
+      // If the query is empty, reset to the original form
+      setFilteredContacts(null);
+    } else {
+      // Filter contacts
+      const filteredContacts = sortedContacts.filter((contact) => {
+        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery);
+        return filteredName;
+      });
+  
+      // Update filteredContacts state
+      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }]);
+    }
+  
+    setSearchQuery(query);
+  };
+
   const renderContacts = ({ item }) => (
     <TouchableOpacity key={item.id} onPress={() => { /* Handle contact press */ }}>
       <View style={styles.view}>
@@ -49,17 +72,21 @@ function ContactListView({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <TextInput placeholder='Search' style={styles.searchbar}/>
+      <TextInput placeholder='Search' 
+      style={styles.searchbar}
+      value={searchQuery}
+      onChangeText={handleSearch}
+      />
         <TouchableOpacity onPress={() => navigation.navigate('Create Contact')}>
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
 
       </View>
       <SectionList
-        sections={sections}
+        sections={filteredContacts || sections}
         renderItem={renderContacts}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => (item && item.id ? item.id.toString() : index.toString())}
       />
     </View>
   );
