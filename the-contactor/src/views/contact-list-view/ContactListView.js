@@ -12,10 +12,10 @@ function ContactListView({ navigation }) {
     phoneNumber: elem.phoneNumber,
   }));
 
-  // Sort contacts by name
+  
   const sortedContacts = contactsMapped.sort((a, b) => a.name.localeCompare(b.name));
 
-  // Group contacts by the first letter of the name
+  
   const groupedContacts = sortedContacts.reduce((acc, contact) => {
     const firstLetter = contact.name[0].toUpperCase();
     if (!acc[firstLetter]) {
@@ -37,16 +37,15 @@ function ContactListView({ navigation }) {
     const lowerCaseQuery = query.toLowerCase();
   
     if (lowerCaseQuery.trim() === '') {
-      // If the query is empty, reset to the original form
+      
       setFilteredContacts(null);
     } else {
-      // Filter contacts
       const filteredContacts = sortedContacts.filter((contact) => {
         const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery);
         return filteredName;
       });
   
-      // Update filteredContacts state
+      
       setFilteredContacts([{ title: 'Search Results', data: filteredContacts }]);
     }
   
