@@ -54,7 +54,7 @@ function ContactListView({ navigation }) {
   };
 
   const renderContacts = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => { /* Handle contact press */ }}>
+    <TouchableOpacity key={item.id} onPress={() => { ContactDetail(item) }}>
       <View style={styles.view}>
         <Image style={styles.image} source={{ uri: item.profileimage }} />
         <Text style={styles.text}>{item.name}</Text>
@@ -68,6 +68,10 @@ function ContactListView({ navigation }) {
       <Text style={styles.sectionHeaderText}>{title}</Text>
     </View>
   );
+
+  const ContactDetail = (item) => {
+    navigation.navigate('Contact Details', { item: item });
+  }
 
   return (
     <View style={styles.container}>
