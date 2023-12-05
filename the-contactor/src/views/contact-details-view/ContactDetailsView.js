@@ -21,7 +21,7 @@ function ContactDetailsView({ navigation, route }) {
         <Text style={styles.phoneNumber} >{ item.phoneNumber }</Text>
       </View>
         <TouchableOpacity style={styles.callContainer}>
-          <Icon name="call" color="#00ff00" size="25" style={styles.callIcon} />
+          <Icon name="call" color="#00ff00" style={styles.callIcon} />
           <Text style={ styles.text } >Call</Text>
         </TouchableOpacity>
       </View>
