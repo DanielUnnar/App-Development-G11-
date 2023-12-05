@@ -1,72 +1,54 @@
-import React, { useState } from 'react';
-import { Text, View, Image, TouchableOpacity, SectionList, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, Image, TouchableOpacity, SectionList, TextInput, Button, FlatList } from 'react-native';
 import styles from './ContactListViewStyles';
-import contacts from '../../resources/data.json';
 import { Icon } from '@rneui/themed';
+import { readAllContacts, addContact, deleteAllJohnFiles } from '../../services/fileService';
 
 function ContactListView({ navigation }) {
-  const contactsMapped = contacts.map(elem => ({
-    id: elem.id,
-    name: elem.name,
-    profileimage: elem.profileimage,
-    phoneNumber: elem.phoneNumber,
-  }));
+  const [contacts, setContacts] = useState([])
+  const john = {
+    name: 'John',
+    profileimage: 'https://fortnite.gg/img/items/10730/icon.jpg?3',
+    phoneNumber: '8527722'
+  }
+  const addJohnContact = () => {
+    const john = {
+      name: 'John',
+      profileimage: 'https://fortnite.gg/img/items/10730/icon.jpg?3',
+      phoneNumber: '8527722'
+    };
 
-  // Sort contacts by name
-  const sortedContacts = contactsMapped.sort((a, b) => a.name.localeCompare(b.name));
-
-  // Group contacts by the first letter of the name
-  const groupedContacts = sortedContacts.reduce((acc, contact) => {
-    const firstLetter = contact.name[0].toUpperCase();
-    if (!acc[firstLetter]) {
-      acc[firstLetter] = [];
-    }
-    acc[firstLetter].push(contact);
-    return acc;
-  }, {});
-
-  const sections = Object.entries(groupedContacts).map(([letter, data]) => ({
-    title: letter,
-    data,
-  }));
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredContacts, setFilteredContacts] = useState(null);
-
-  const handleSearch = (query) => {
-    const lowerCaseQuery = query.toLowerCase();
-  
-    if (lowerCaseQuery.trim() === '') {
-      // If the query is empty, reset to the original form
-      setFilteredContacts(null);
-    } else {
-      // Filter contacts
-      const filteredContacts = sortedContacts.filter((contact) => {
-        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery);
-        return filteredName;
-      });
-  
-      // Update filteredContacts state
-      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }]);
-    }
-  
-    setSearchQuery(query);
+    addContact(john, fetchContacts);
   };
 
+  const fetchContacts = async () => {
+    const allContacts = await readAllContacts();
+    if (allContacts !== null) {
+      setContacts(allContacts);
+    }
+  };
+
+  
+  useEffect(() => {
+    async function fetchContacts() {
+      const allContacts = await readAllContacts();
+      if (allContacts !== null) {
+        setContacts(allContacts)
+      }
+    }
+
+    fetchContacts();
+  }, []);
+
+
   const renderContacts = ({ item }) => (
-    <TouchableOpacity key={item.id} onPress={() => { ContactDetail(item) }}>
+    <TouchableOpacity key={item.uuid} onPress={() => { ContactDetail(item) }}>
       <View style={styles.view}>
         <Image style={styles.image} source={{ uri: item.profileimage }} />
         <Text style={styles.text}>{item.name}</Text>
         <Icon name="arrow-forward-ios" color="grey" style={styles.icon} />
       </View>
     </TouchableOpacity>
-  );
-
-  const renderSectionHeader = ({ section: { title } }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionHeaderText}>{title}</Text>
-    </View>
   );
 
   const ContactDetail = (item) => {
@@ -76,22 +58,20 @@ function ContactListView({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <TextInput placeholder='Search' 
-      style={styles.searchbar}
-      value={searchQuery}
-      onChangeText={handleSearch}
-      />
+        <Button title='Create John' onPress={() => addJohnContact()}/>
         <TouchableOpacity onPress={() => navigation.navigate('Create Contact')}>
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
 
       </View>
-      <SectionList
-        sections={filteredContacts || sections}
-        renderItem={renderContacts}
-        renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item, index) => (item && item.id ? item.id.toString() : index.toString())}
-      />
+      {contacts.length > 0 ? (
+      <FlatList 
+      data={contacts}
+      renderItem={renderContacts}
+      keyExtractor={item => item.uuid.toString()}/>
+      ) : (
+        <Text>No Contacts Found</Text>
+      )}
     </View>
   );
 }
