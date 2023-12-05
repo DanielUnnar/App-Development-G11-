@@ -98,8 +98,6 @@ async function createContact(contact, onSuccess) {
   
       // Remove null values from the result array
       const allContactsWithUUID = (await Promise.all(filePromises)).filter((contact) => contact !== null);
-  
-      console.log('All Contacts:', allContactsWithUUID);
       return allContactsWithUUID;
     } catch (error) {
       console.error('Error reading all contacts:', error);

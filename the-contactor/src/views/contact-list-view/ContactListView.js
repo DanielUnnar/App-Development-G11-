@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, TouchableOpacity, SectionList, TextInput, Button, Linking } from 'react-native';
+import { Text, View, Image, TouchableOpacity, SectionList, TextInput, Button } from 'react-native';
 import styles from './ContactListViewStyles';
 import { Icon } from '@rneui/themed';
 import { readAllContacts, addContact } from '../../services/fileService';
 
-function ContactListView({ navigation }) {
+function ContactListView({ navigation, route }) {
   const [contacts, setContacts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredContacts, setFilteredContacts] = useState(null);
@@ -15,8 +15,8 @@ function ContactListView({ navigation }) {
     phoneNumber: '8526969',
   };
 
-  const addJohnContact = async () => {
-    await addContact(john);
+  const addNewContact = async (contact) => {
+    await addContact(contact);
     fetchContacts();
   };
 
@@ -29,6 +29,10 @@ function ContactListView({ navigation }) {
 
   useEffect(() => {
     fetchContacts();
+
+    const refreshInterval = setInterval(fetchContacts, 1000);
+
+    return () => clearInterval(refreshInterval);
   }, []);
 
   const renderContacts = ({ item }) => (
@@ -86,7 +90,7 @@ function ContactListView({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Button title='Create John' onPress={() => {Linking.openURL(`tel:8526969`)}} />
+      <Button title='Create John'/>
       <View style={styles.header}>
         <TextInput
           placeholder='Search'
@@ -94,7 +98,7 @@ function ContactListView({ navigation }) {
           value={searchQuery}
           onChangeText={handleSearch}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Create Contact')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Create Contact', { addContact: addContact })}>
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
       </View>
