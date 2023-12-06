@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native';
 import styles from './CreateContactViewStyles';
-import { pickImage } from '../../services/imageService';
+import { pickImage, takeImage } from '../../services/imageService';
 import { Icon } from '@rneui/themed';
 
 function CreateContactView ({ navigation, route }) {
@@ -43,7 +43,20 @@ function CreateContactView ({ navigation, route }) {
         setImage(uri)
         setModalVisible(false)
       }
-    } catch (error) {
+    } 
+    catch (error) {
+      Alert.alert('Error', error.message)
+    }
+  }
+  const handleTakeImage = async () => {
+    try {
+      const uri = await takeImage()
+      if (uri) {
+        setImage(uri)
+        setModalVisible(false)
+      } 
+    }
+    catch (error) {
       Alert.alert('Error', error.message)
     }
   }
@@ -63,9 +76,14 @@ function CreateContactView ({ navigation, route }) {
               <View style={styles.modalView}>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={handlePickImage}>
-              <Icon name="image" color="white" style={styles.imageIcon} />
-            </Pressable>
+                  onPress={() => handlePickImage()}>
+                  <Icon size={50} name="image" color="white" style={styles.imageIcon} />
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => handleTakeImage()}>
+                  <Icon size={50} type='entypo' name="camera" color="white" style={styles.imageIcon} />
+                </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
@@ -107,8 +125,8 @@ function CreateContactView ({ navigation, route }) {
               value={image}
               onChangeText={(text) => setImage(text)}
             />
-            <TouchableOpacity onPress={() => handleSavePress()}>
-              <Text style={styles.saveBtn}>Save</Text>
+            <TouchableOpacity style={styles.saveBtn} onPress={() => handleSavePress()}>
+              <Text style={styles.saveBtnText}>Save</Text>
 
             </TouchableOpacity>
         </View>

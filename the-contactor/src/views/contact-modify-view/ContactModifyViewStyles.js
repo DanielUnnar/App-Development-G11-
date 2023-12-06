@@ -18,22 +18,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginBottom: 10,
   },
-  upperHalf: {
-    flex: 1,
-    alignItems: 'center',
-    width: '100%',
-    justifyContent: 'center',
-    backgroundColor: '#fff', 
-  },
-  lowerHalf: {
-    width: '100%',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff', 
-    paddingBottom: 120, 
-  },
-  phoneNumber: {
+  textInput: {
     marginTop: 10,
     borderWidth: 1,
     borderRadius: 10,
@@ -51,6 +36,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bfff',
     color: '#fff',
     fontWeight: '500',
+  },
+  saveBtnText: {
+    color: '#fff',
+    fontWeight: '500',
+    textAlign: 'center'
   },
   centeredView: {
     flex: 1,
@@ -95,7 +85,9 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   imageIcon: {
-
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
   }
 });
 

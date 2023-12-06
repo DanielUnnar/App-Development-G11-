@@ -38,17 +38,18 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
     textAlign: 'center',
-    padding: 4,
     marginBottom: 20
+
   },
   phoneNumber: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text2: {
     fontSize: 11,
-    color: '#737373'
+    color: '#737373',
+    paddingLeft: 5,
   },
 
   callIcon: {

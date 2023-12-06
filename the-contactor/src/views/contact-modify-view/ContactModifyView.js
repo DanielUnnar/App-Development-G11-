@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native';
 import styles from './ContactModifyViewStyles';
-import { pickImage } from '../../services/imageService';
+import { pickImage, takeImage } from '../../services/imageService';
 import { Icon } from '@rneui/themed';
 
 function ContactModifyView({navigation, route}) {
@@ -46,6 +46,18 @@ function ContactModifyView({navigation, route}) {
         Alert.alert('Error', error.message)
       }
     }
+    const handleTakeImage = async () => {
+      try {
+        const uri = await takeImage()
+        if (uri) {
+          setImage(uri)
+          setModalVisible(false)
+        } 
+      }
+      catch (error) {
+        Alert.alert('Error', error.message)
+      }
+    }
 
     return (
         <View style={styles.container}>
@@ -61,8 +73,14 @@ function ContactModifyView({navigation, route}) {
               <View style={styles.modalView}>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={handlePickImage}>
-              <Icon name="image" color="white" style={styles.imageIcon} />
+                  onPress={() => handlePickImage()}>
+              <Icon 
+              size={50} name="image" color="white"  />
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => handleTakeImage()}>
+              <Icon size={50} type='entypo' name="camera" color="white"  />
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -84,29 +102,29 @@ function ContactModifyView({navigation, route}) {
           />
         )}
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text style={styles.imageText}>Add Image</Text>
+            <Text style={styles.imageText}>Modify Image</Text>
             </TouchableOpacity>
             <Text style={styles.name}></Text>
             <TextInput 
-              style={styles.phoneNumber} 
+              style={styles.textInput} 
               placeholder='Name (Required)'
               value={contactname}
               onChangeText={(text) => handleText(text)}
              />
             <TextInput 
-              style={styles.phoneNumber}
+              style={styles.textInput}
               placeholder='Phone Number (Required)'
               value={phone}
               onChangeText={(text) => handlePhone(text)}
             />
             <TextInput
-              style={styles.phoneNumber}
+              style={styles.textInput}
               placeholder='Image URL'
               value={image}
               onChangeText={(text) => setImage(text)}
             />
-            <TouchableOpacity onPress={() => handleSavePress()}>
-              <Text style={styles.saveBtn}>Save</Text>
+            <TouchableOpacity style={styles.saveBtn} onPress={() => handleSavePress()}>
+              <Text style={styles.saveBtnText}>Save</Text>
             </TouchableOpacity>
         </View>
       );
