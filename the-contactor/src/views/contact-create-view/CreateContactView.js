@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native'
 import styles from './CreateContactViewStyles'
 import { pickImage } from '../../services/imageService'
@@ -8,6 +8,20 @@ function CreateContactView ({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false)
   const [imageUri, setImageUri] = useState(null)
   const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i
+  const { addContact } = route.params;
+    const [contactname, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [image, setImage] = useState('');
+
+    const handleSavePress = () => {
+      newContact = {
+        name: contactname,
+        profileimage: image,
+        phoneNumber: phone,
+      }
+      addContact(newContact)
+      navigation.goBack()
+    }
 
   const handlePickImage = async () => {
     try {
@@ -23,6 +37,7 @@ function CreateContactView ({ navigation, route }) {
   }
 
   return (
+
         <View style={styles.container}>
           <Modal
             animationType="slide"
@@ -64,10 +79,28 @@ function CreateContactView ({ navigation, route }) {
             <Text style={styles.name}></Text>
           </View>
           <View style={styles.lowerHalf}>
-             <TextInput style={styles.phoneNumber} placeholder='Name'/>
-            <TextInput style={styles.phoneNumber} placeholder='Phone Number'/>
-            <TouchableOpacity style={styles.saveBtn}>
-              <Text style={styles.saveBtnText}>Save</Text>
+
+            <TextInput 
+              style={styles.phoneNumber} 
+              placeholder='Name'
+              value={contactname}
+              onChangeText={(text) => setName(text)}
+             />
+            <TextInput 
+              style={styles.phoneNumber}
+              placeholder='Phone Number'
+              value={phone}
+              onChangeText={(text) => setPhone(text)}
+            />
+            <TextInput
+              style={styles.phoneNumber}
+              placeholder='Image URL'
+              value={image}
+              onChangeText={(text) => setImage(text)}
+            />
+            <TouchableOpacity onPress={() => handleSavePress()}>
+              <Text style={styles.saveBtn}>Save</Text>
+
             </TouchableOpacity>
           </View>
         </View>

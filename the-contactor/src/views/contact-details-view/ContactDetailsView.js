@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Linking } from 'react-native';
 import styles from './ContactDetailsViewStyles';
 import { Icon } from '@rneui/themed';
 
@@ -20,7 +20,7 @@ function ContactDetailsView({ navigation, route }) {
         <Text style={ styles.text2 } >Phone Number</Text>
         <Text style={styles.phoneNumber} >{ item.phoneNumber }</Text>
       </View>
-        <TouchableOpacity style={styles.callContainer}>
+        <TouchableOpacity style={styles.callContainer} onPress={() => { Linking.openURL(`tel:${item.phoneNumber}`) }}>
           <Icon name="call" color="#00ff00" style={styles.callIcon} />
           <Text style={ styles.text } >Call</Text>
         </TouchableOpacity>
