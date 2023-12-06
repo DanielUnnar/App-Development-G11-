@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, TouchableOpacity, SectionList, TextInput, Button } from 'react-native';
+import { Text, View, Image, TouchableOpacity, SectionList, TextInput, PermissionsAndroid } from 'react-native';
 import styles from './ContactListViewStyles';
 import { Icon } from '@rneui/themed';
-import { readAllContacts, addContact } from '../../services/fileService';
+import { readAllContacts, addContact, modifyContact, deleteContact } from '../../services/fileService';
+import * as Contacts from 'expo-contacts';
 
 function ContactListView({ navigation, route }) {
-  const [contacts, setContacts] = useState([]);
+  const [ourcontacts, setContacts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredContacts, setFilteredContacts] = useState(null);
 
-  const john = {
-    name: 'John',
-    profileimage: 'https://fortnite.gg/img/items/10730/icon.jpg?3',
-    phoneNumber: '8526969',
-  };
+  //Accepted formats of images, if you add in any other type, it will not render, even if <Image> from react-native allows it.
+  //However, if you try to add an image like x.jpg, it will think of it as valid and render nothing, we will not be putting more
+  //resources towards this though as it is just something we liked to have and isn't a requirement.
 
   const addNewContact = async (contact) => {
     await addContact(contact);
@@ -24,8 +23,30 @@ function ContactListView({ navigation, route }) {
     const allContacts = await readAllContacts();
     if (allContacts !== null) {
       setContacts(allContacts);
+    } else {
+      setContacts([]);
     }
   };
+
+  async function importContacts() {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const { data } = await Contacts.getContactsAsync({
+        fields: [Contacts.Fields.FirstName, Contacts.Fields.LastName, Contacts.Fields.PhoneNumbers, Contacts.Fields.RawImage, Contacts.Fields.Image]
+      })
+      data.forEach(contact => {
+        const fullName = contact.lastName ? `${contact.firstName} ${contact.lastName}` : contact.firstName;
+        const image = contact.image ? contact.image.uri : null;
+        const newContact = {
+          name: fullName,
+          profileimage: image,
+          phoneNumber: contact.phoneNumbers[0].number,
+        } 
+        addContact(newContact)
+      })
+    }
+  }
+  
 
   useEffect(() => {
     fetchContacts();
@@ -38,18 +59,28 @@ function ContactListView({ navigation, route }) {
   const renderContacts = ({ item }) => (
     <TouchableOpacity key={item.uuid} onPress={() => ContactDetail(item)}>
       <View style={styles.view}>
-        <Image style={styles.image} source={{ uri: item.profileimage }} />
+        {item.profileimage ? (
+          <Image style={styles.image} source={{ uri: item.profileimage }} />
+        ) : (
+          <Image
+            style={styles.image}
+            source={{
+              uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+            }}
+          />
+        )}
         <Text style={styles.text}>{item.name}</Text>
         <Icon name="arrow-forward-ios" color="grey" style={styles.icon} />
       </View>
     </TouchableOpacity>
   );
+  
 
   const ContactDetail = (item) => {
-    navigation.navigate('Contact Details', { item: item });
+    navigation.navigate('Contact Details', { item: item, modifyContact: modifyContact, deleteContact: deleteContact });
   };
 
-  const sortedContacts = contacts.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedContacts = ourcontacts.sort((a, b) => a.name.localeCompare(b.name));
 
   const groupedContacts = sortedContacts.reduce((acc, contact) => {
     const firstLetter = contact.name[0].toUpperCase();
@@ -90,7 +121,9 @@ function ContactListView({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Button title='Create John'/>
+      <TouchableOpacity onPress={() => importContacts()}>
+        <Text style={styles.import}>Import Contacts</Text>
+      </TouchableOpacity>
       <View style={styles.header}>
         <TextInput
           placeholder='Search'
@@ -98,7 +131,7 @@ function ContactListView({ navigation, route }) {
           value={searchQuery}
           onChangeText={handleSearch}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Create Contact', { addContact: addContact })}>
+        <TouchableOpacity onPress={() => navigation.navigate('Create Contact', { addContact: addNewContact })}>
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
       </View>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import styles from './CreateContactViewStyles';
 
 function CreateContactView({navigation, route}) {
@@ -9,6 +9,7 @@ function CreateContactView({navigation, route}) {
     const [image, setImage] = useState('');
 
     const handleSavePress = () => {
+      if (contactname.length !== 0 && phone.length !== 0) {
       newContact = {
         name: contactname,
         profileimage: image,
@@ -16,6 +17,19 @@ function CreateContactView({navigation, route}) {
       }
       addContact(newContact)
       navigation.goBack()
+      }
+      else {
+        Alert.alert('Required Fields Missing', 'You are missing required fields')
+      }
+    }
+
+    const handleText = (text) => {
+      text = text.replace('-', '')
+      setName(text)
+    }
+    const handlePhone = (text) => {
+      text = text.replace(/[^0-9]/g, '')
+      setPhone(text)
     }
     return (
         <View style={styles.container}>
@@ -29,15 +43,15 @@ function CreateContactView({navigation, route}) {
           <View style={styles.lowerHalf}>
             <TextInput 
               style={styles.phoneNumber} 
-              placeholder='Name'
+              placeholder='Name (Required)'
               value={contactname}
-              onChangeText={(text) => setName(text)}
+              onChangeText={(text) => handleText(text)}
              />
             <TextInput 
               style={styles.phoneNumber}
-              placeholder='Phone Number'
+              placeholder='Phone Number (Required)'
               value={phone}
-              onChangeText={(text) => setPhone(text)}
+              onChangeText={(text) => handlePhone(text)}
             />
             <TextInput
               style={styles.phoneNumber}

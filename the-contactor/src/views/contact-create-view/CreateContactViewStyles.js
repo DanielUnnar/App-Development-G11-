@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff', 
-    paddingBottom: 120,  // Increase the paddingTop value
+    paddingBottom: 120, 
   },
   phoneNumber: {
     marginTop: 10,

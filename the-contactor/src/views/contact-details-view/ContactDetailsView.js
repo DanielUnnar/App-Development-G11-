@@ -4,15 +4,36 @@ import styles from './ContactDetailsViewStyles';
 import { Icon } from '@rneui/themed';
 
 function ContactDetailsView({ navigation, route }) {
-  const { item } = route.params;
+  const { item, modifyContact, deleteContact } = route.params;
+  const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i;
+
+
+  function handleDeletePress(contact) {
+    deleteContact(contact)
+    navigation.goBack()
+  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.upperHalf}>
+      <View style={styles.edit}>
         <TouchableOpacity>
-          <Icon name="edit" color="white" style={styles.editIcon} onPress={() => console.log("hello")} />
+          <Icon name="delete" color="red" style={styles.editIcon} onPress={() => handleDeletePress(item)}/>
         </TouchableOpacity>
-        <Image style={styles.profileImage} source={{ uri: item.profileimage }} />
+        <TouchableOpacity>
+          <Icon name="edit" color="white" style={styles.editIcon} onPress={() => {navigation.navigate('Modify Contact', {contact: item, modifyContact: modifyContact})}} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.upperHalf}>
+      {item.profileimage ? (
+          <Image style={styles.profileImage} source={{ uri: item.profileimage }} />
+        ) : (
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+            }}
+          />
+        )}
         <Text style={ styles.name } >{ item.name }</Text>
       </View>
       <View style={ styles.lowerHalf }>
