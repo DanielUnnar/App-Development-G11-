@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
-    paddingBottom: 120 // Increase the paddingTop value
+    backgroundColor: '#fff', 
+    paddingBottom: 120, 
   },
   phoneNumber: {
     marginTop: 10,

@@ -4,8 +4,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   profileImage: {
     width: 200,
@@ -57,9 +55,7 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   editIcon: {
-    marginLeft: 300,
-    marginTop: 30,
-    marginBottom: 30,
+    margin: 10,
     borderWidth: 3,
     borderRadius: 10,
     paddingVertical: 5,
@@ -79,8 +75,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bcf0',
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  edit: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
-})
+});
+
 
 export default styles

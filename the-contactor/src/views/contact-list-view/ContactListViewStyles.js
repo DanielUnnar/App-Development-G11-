@@ -56,6 +56,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     width: 320,
+  },
+  import: {
+    textAlign: 'right',
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingRight: 7,
+    marginRight: 10,
+    fontSize: 16,
+    marginLeft: 250,
   }
 });
 
