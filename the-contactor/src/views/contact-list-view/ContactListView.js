@@ -9,24 +9,20 @@ function ContactListView({ navigation, route }) {
   const [ourcontacts, setContacts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredContacts, setFilteredContacts] = useState(null);
-
-  //Accepted formats of images, if you add in any other type, it will not render, even if <Image> from react-native allows it.
-  //However, if you try to add an image like x.jpg, it will think of it as valid and render nothing, we will not be putting more
-  //resources towards this though as it is just something we liked to have and isn't a requirement.
-
+  
   const addNewContact = async (contact) => {
     await addContact(contact);
     fetchContacts();
   };
 
   const fetchContacts = async () => {
-    const allContacts = await readAllContacts();
+    const allContacts = await readAllContacts()
     if (allContacts !== null) {
       setContacts(allContacts);
     } else {
       setContacts([]);
     }
-  };
+  }
 
   async function importContacts() {
     const { status } = await Contacts.requestPermissionsAsync();
@@ -49,6 +45,7 @@ function ContactListView({ navigation, route }) {
   
 
   useEffect(() => {
+
     fetchContacts();
 
     const refreshInterval = setInterval(fetchContacts, 1000);
@@ -83,41 +80,41 @@ function ContactListView({ navigation, route }) {
   const sortedContacts = ourcontacts.sort((a, b) => a.name.localeCompare(b.name));
 
   const groupedContacts = sortedContacts.reduce((acc, contact) => {
-    const firstLetter = contact.name[0].toUpperCase();
+    const firstLetter = contact.name[0].toUpperCase()
     if (!acc[firstLetter]) {
-      acc[firstLetter] = [];
+      acc[firstLetter] = []
     }
-    acc[firstLetter].push(contact);
-    return acc;
-  }, {});
+    acc[firstLetter].push(contact)
+    return acc
+  }, {})
 
   const sections = Object.entries(groupedContacts).map(([letter, data]) => ({
     title: letter,
-    data,
-  }));
+    data
+  }))
 
   const handleSearch = (query) => {
-    const lowerCaseQuery = query.toLowerCase();
+    const lowerCaseQuery = query.toLowerCase()
 
     if (lowerCaseQuery.trim() === '') {
-      setFilteredContacts(null);
+      setFilteredContacts(null)
     } else {
       const filteredContacts = sortedContacts.filter((contact) => {
-        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery);
-        return filteredName;
-      });
+        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery)
+        return filteredName
+      })
 
-      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }]);
+      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }])
     }
 
-    setSearchQuery(query);
-  };
+    setSearchQuery(query)
+  }
 
   const renderSectionHeader = ({ section: { title } }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionHeaderText}>{title}</Text>
     </View>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -135,6 +132,9 @@ function ContactListView({ navigation, route }) {
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity>
+        <Text>Import contacts</Text>
+      </TouchableOpacity>
 
       <SectionList
         sections={filteredContacts || sections}
@@ -143,7 +143,7 @@ function ContactListView({ navigation, route }) {
         keyExtractor={(item, index) => (item && item.uuid ? item.uuid.toString() : index.toString())}
       />
     </View>
-  );
+  )
 }
 
-export default ContactListView;
+export default ContactListView
