@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native';
 import styles from './ContactModifyViewStyles';
+import { pickImage } from '../../services/imageService';
+import { Icon } from '@rneui/themed';
 
 function ContactModifyView({navigation, route}) {
     const { contact, modifyContact } = route.params;
+    const [modalVisible, setModalVisible] = useState(false)
     const [contactname, setName] = useState(contact.name);
     const [phone, setPhone] = useState(contact.phoneNumber);
     const [image, setImage] = useState(contact.profileimage);
@@ -31,9 +34,46 @@ function ContactModifyView({navigation, route}) {
       text = text.replace(/[^0-9]/g, '')
       setPhone(text)
     }
+
+    const handlePickImage = async () => {
+      try {
+        const uri = await pickImage()
+        if (uri) {
+          setImage(uri)
+          setModalVisible(false)
+        }
+      } catch (error) {
+        Alert.alert('Error', error.message)
+      }
+    }
+
     return (
         <View style={styles.container}>
-          {image ? (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.')
+              setModalVisible(!modalVisible)
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={handlePickImage}>
+              <Icon name="image" color="white" style={styles.imageIcon} />
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Cancel</Text>
+            </Pressable>
+            </View>
+          </View>
+
+          </Modal>
+        {image ? (
           <Image style={styles.profileImage} source={{ uri: image }} />
         ) : (
           <Image
@@ -43,7 +83,7 @@ function ContactModifyView({navigation, route}) {
             }}
           />
         )}
-            <TouchableOpacity onPress={()=> console.log('Hello')}>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Text style={styles.imageText}>Add Image</Text>
             </TouchableOpacity>
             <Text style={styles.name}></Text>

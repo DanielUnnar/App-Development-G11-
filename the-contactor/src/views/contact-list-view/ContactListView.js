@@ -132,10 +132,6 @@ function ContactListView({ navigation, route }) {
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity>
-        <Text>Import contacts</Text>
-      </TouchableOpacity>
-
       <SectionList
         sections={filteredContacts || sections}
         renderItem={renderContacts}

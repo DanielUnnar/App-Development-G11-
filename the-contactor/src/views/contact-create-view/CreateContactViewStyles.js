@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   saveBtn: {
-    marginTop: 10,
+    marginTop: 40,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,

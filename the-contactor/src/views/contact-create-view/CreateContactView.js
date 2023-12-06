@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native'
-import styles from './CreateContactViewStyles'
-import { pickImage } from '../../services/imageService'
-import { Icon } from '@rneui/themed'
+import React, { useState, useEffect } from 'react';
+import { Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, Pressable } from 'react-native';
+import styles from './CreateContactViewStyles';
+import { pickImage } from '../../services/imageService';
+import { Icon } from '@rneui/themed';
 
 function CreateContactView ({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false)
-  const [imageUri, setImageUri] = useState(null)
   const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i
   const { addContact } = route.params;
     const [contactname, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
 
     const handleSavePress = () => {
       if (contactname.length !== 0 && phone.length !== 0) {
@@ -41,9 +40,8 @@ function CreateContactView ({ navigation, route }) {
     try {
       const uri = await pickImage()
       if (uri) {
-        setImageUri(uri)
+        setImage(uri)
         setModalVisible(false)
-        console.log(uri)
       }
     } catch (error) {
       Alert.alert('Error', error.message)
@@ -79,10 +77,9 @@ function CreateContactView ({ navigation, route }) {
           </Modal>
 
         <Text style={styles.textStyle}>Add Image</Text>
-          <View style={styles.upperHalf}>
-          {imageUri && imageExtensions.test(imageUri)
+          {image && imageExtensions.test(image)
             ? (
-        <Image style={styles.profileImage} source={{ uri: imageUri }} />
+        <Image style={styles.profileImage} source={{ uri: image }} />
               )
             : (
         <Image style={styles.profileImage} source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}/>
@@ -91,8 +88,6 @@ function CreateContactView ({ navigation, route }) {
             <Text style={styles.imageText}>Add Image</Text>
             </TouchableOpacity>
             <Text style={styles.name}></Text>
-          </View>
-          <View style={styles.lowerHalf}>
 
             <TextInput 
               style={styles.phoneNumber} 
@@ -116,7 +111,6 @@ function CreateContactView ({ navigation, route }) {
               <Text style={styles.saveBtn}>Save</Text>
 
             </TouchableOpacity>
-          </View>
         </View>
   )
 }

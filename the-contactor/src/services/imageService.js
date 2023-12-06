@@ -9,7 +9,7 @@ export async function pickImage() {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       return result.assets[0].uri;
     } else {
       return null;
