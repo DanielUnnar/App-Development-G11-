@@ -12,8 +12,8 @@ function ContactListView({ navigation, route }) {
   const john = {
     name: 'John',
     profileimage: 'https://fortnite.gg/img/items/10730/icon.jpg?3',
-    phoneNumber: '8526969',
-  };
+    phoneNumber: '8526969'
+  }
 
   const addNewContact = async (contact) => {
     await addContact(contact);
@@ -21,13 +21,14 @@ function ContactListView({ navigation, route }) {
   };
 
   const fetchContacts = async () => {
-    const allContacts = await readAllContacts();
+    const allContacts = await readAllContacts()
     if (allContacts !== null) {
-      setContacts(allContacts);
+      setContacts(allContacts)
     }
-  };
+  }
 
   useEffect(() => {
+
     fetchContacts();
 
     const refreshInterval = setInterval(fetchContacts, 1000);
@@ -43,50 +44,50 @@ function ContactListView({ navigation, route }) {
         <Icon name="arrow-forward-ios" color="grey" style={styles.icon} />
       </View>
     </TouchableOpacity>
-  );
+  )
 
   const ContactDetail = (item) => {
-    navigation.navigate('Contact Details', { item: item });
-  };
+    navigation.navigate('Contact Details', { item })
+  }
 
-  const sortedContacts = contacts.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedContacts = contacts.sort((a, b) => a.name.localeCompare(b.name))
 
   const groupedContacts = sortedContacts.reduce((acc, contact) => {
-    const firstLetter = contact.name[0].toUpperCase();
+    const firstLetter = contact.name[0].toUpperCase()
     if (!acc[firstLetter]) {
-      acc[firstLetter] = [];
+      acc[firstLetter] = []
     }
-    acc[firstLetter].push(contact);
-    return acc;
-  }, {});
+    acc[firstLetter].push(contact)
+    return acc
+  }, {})
 
   const sections = Object.entries(groupedContacts).map(([letter, data]) => ({
     title: letter,
-    data,
-  }));
+    data
+  }))
 
   const handleSearch = (query) => {
-    const lowerCaseQuery = query.toLowerCase();
+    const lowerCaseQuery = query.toLowerCase()
 
     if (lowerCaseQuery.trim() === '') {
-      setFilteredContacts(null);
+      setFilteredContacts(null)
     } else {
       const filteredContacts = sortedContacts.filter((contact) => {
-        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery);
-        return filteredName;
-      });
+        const filteredName = contact.name.toLowerCase().includes(lowerCaseQuery)
+        return filteredName
+      })
 
-      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }]);
+      setFilteredContacts([{ title: 'Search Results', data: filteredContacts }])
     }
 
-    setSearchQuery(query);
-  };
+    setSearchQuery(query)
+  }
 
   const renderSectionHeader = ({ section: { title } }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionHeaderText}>{title}</Text>
     </View>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -102,6 +103,9 @@ function ContactListView({ navigation, route }) {
           <Text style={styles.newContactBtn}>+</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity>
+        <Text>Import contacts</Text>
+      </TouchableOpacity>
 
       <SectionList
         sections={filteredContacts || sections}
@@ -110,7 +114,7 @@ function ContactListView({ navigation, route }) {
         keyExtractor={(item, index) => (item && item.uuid ? item.uuid.toString() : index.toString())}
       />
     </View>
-  );
+  )
 }
 
-export default ContactListView;
+export default ContactListView

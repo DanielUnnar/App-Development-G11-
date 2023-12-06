@@ -1,38 +1,38 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   profileImage: {
     width: 200,
     height: 200,
     borderRadius: 100,
-    borderWidth: 2,
+    borderWidth: 2
   },
   upperHalf: {
     flex: 1,
     alignItems: 'center',
     width: '100%',
     justifyContent: 'center',
-    backgroundColor: '#D3D3D3', 
+    backgroundColor: '#D3D3D3'
   },
   lowerHalf: {
     width: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffff', 
-    paddingTop: 20, 
+    backgroundColor: '#ffff',
+    paddingTop: 20
   },
   name: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   phoneNumberContainer: {
     borderWidth: 2,
@@ -41,20 +41,20 @@ const styles = StyleSheet.create({
     height: 50,
     textAlign: 'center',
     padding: 4,
-    marginBottom: 20,
+    marginBottom: 20
   },
   phoneNumber: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   text2: {
     fontSize: 11,
-    color: '#737373',
+    color: '#737373'
   },
 
   callIcon: {
-    marginRight: 15,
+    marginRight: 15
   },
   editIcon: {
     marginLeft: 300,
@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#00bcf0',
+    backgroundColor: '#00bcf0'
   },
   text: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 20
   },
   callContainer: {
     marginBottom: 200,
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bcf0',
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    justifyContent: 'center'
+  }
+})
 
-export default styles;
+export default styles
