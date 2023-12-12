@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../views/home/home';
-import { MoviesScreen } from '../views/upcoming/index';
+import { MoviesScreen } from '../views/upcoming/upcoming';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

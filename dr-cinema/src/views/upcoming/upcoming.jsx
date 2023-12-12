@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 export function MoviesScreen() {
     return (
         <View style={styles.container}>
-        <Text>Home Screen</Text>
+        <Text>upcoming</Text>
         </View>
     );
 }
