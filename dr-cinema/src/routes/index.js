@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../views/home/home';
 import { MoviesScreen } from '../views/upcoming/upcoming';
+import { CinemaDetails } from '../views/cinema/cinema';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ export function StackNavigator() {
     return (
         <Stack.Navigator>
         <Stack.Screen name="Default" component={TabNavigator} options={{headerShown: false,}}/>
+        <Stack.Screen name="Cinema Details" component={CinemaDetails} />
         {/* <Stack.Screen name="Cinema Details" component={MovieDetailsScreen} /> */}
         </Stack.Navigator>
     );

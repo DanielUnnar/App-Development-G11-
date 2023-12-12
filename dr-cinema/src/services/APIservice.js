@@ -39,4 +39,23 @@ export async function getMovies() {
         console.error('Error:', error);
       }
     }
+
+export async function getCinemas() {
+    try {
+        const response = await fetch('https://api.kvikmyndir.is/theaters', {
+            method: 'Get',
+            headers: new Headers({
+            'x-access-token': await getToken(),
+            }),
+        });
     
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+    
+        const data = await response.json();
+        return data;
+        } catch (error) {
+        console.error('Error:', error);
+        }
+    }
