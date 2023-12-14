@@ -8,7 +8,8 @@ export function HomeScreen({navigation, route}) {
   async function handleCinemas() {
     try {
       const cinemas = await getCinemas();
-      setData(cinemas)
+      const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
+      setData(sortedCinemas)
     } catch (error) {
       console.error('Error:', error);
     }
@@ -21,7 +22,7 @@ export function HomeScreen({navigation, route}) {
   }, []);
   function handlePress(item) {
     console.log(item)
-    navigation.navigate("Cinema Details", {item: item})
+    navigation.navigate("Cinema Details", {cinema: item})
   }
   const renderCinemas = ({ item }) => {
     return (
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginTop: 20,
+    marginBottom: 20,
     backgroundColor: '#FFFFFA'
   },
 });

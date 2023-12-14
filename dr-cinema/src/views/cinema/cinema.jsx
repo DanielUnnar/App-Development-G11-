@@ -4,7 +4,7 @@ import { getMovies } from '../../services/APIservice';
 const windowWidth = Dimensions.get('window').width;
 
 export function CinemaDetails({navigation, route}) {
-    const {item} = route.params;
+    const { cinema } = route.params;
     const [movies, setMovies] = useState('')
     async function handleMovies() {
         try {
@@ -18,8 +18,8 @@ export function CinemaDetails({navigation, route}) {
     function filterMovies(movies) {
         const filteredMovies = []
             movies.forEach(movie => {
-            movie.showtimes.forEach(cinema => {
-                if (cinema.cinema.id === item.id) {
+            movie.showtimes.forEach(theater => {
+                if (theater.cinema.id === cinema.id) {
                     filteredMovies.push(movie)
                 }
             })
@@ -34,7 +34,7 @@ export function CinemaDetails({navigation, route}) {
       }, []);
     
       const renderMovies = ({ item }) => (
-        <TouchableOpacity onPress={() => navigation.navigate('Movie Details', {item: item})}>
+        <TouchableOpacity onPress={() => navigation.navigate('Movie Details', {item: item, cinemaid: cinema.id})}>
           <View style={styles.movieContainer}>
             {item.omdb && item.omdb.length > 0 && item.omdb[0].Poster ? (
               <Image source={{ uri: item.omdb[0].Poster }} style={styles.posterImage} />
@@ -52,13 +52,13 @@ export function CinemaDetails({navigation, route}) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.h1}>{item.name}</Text>
-                <Text style={styles.text}>{item['address\t']}, {item.city}</Text>
+                <Text style={styles.h1}>{cinema.name}</Text>
+                <Text style={styles.text}>{cinema['address\t']}, {cinema.city}</Text>
                 <TouchableOpacity onPress={() => Linking.openURL("https://"+item.website)}>
-                    <Text style={styles.website}>{item.website}</Text>
+                    <Text style={styles.website}>{cinema.website}</Text>
                 </TouchableOpacity>
-                <Text style={styles.text}>Phone: {item.phone}</Text>
-                <Text style={styles.text1}>{item.description.replaceAll("<br>","").replaceAll("<b>","")}</Text>
+                <Text style={styles.text}>Phone: {cinema.phone}</Text>
+                <Text style={styles.text1}>{cinema.description.replaceAll("<br>","").replaceAll("<b>","")}</Text>
             </View>        
             <View style={styles.body}>
                 <FlatList
