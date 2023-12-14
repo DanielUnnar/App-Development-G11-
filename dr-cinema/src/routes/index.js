@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../views/home/home';
 import { MoviesScreen } from '../views/upcoming/upcoming';
 import { CinemaDetails } from '../views/cinema/cinema';
+import { MovieDetails } from '../views/movie/movie';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
@@ -36,6 +37,7 @@ export function StackNavigator() {
         <Stack.Navigator>
         <Stack.Screen name="Default" component={TabNavigator} options={{headerShown: false,}}/>
         <Stack.Screen name="Cinema Details" component={CinemaDetails} />
+        <Stack.Screen name="Movie Details" component={MovieDetails} />
         {/* <Stack.Screen name="Cinema Details" component={MovieDetailsScreen} /> */}
         </Stack.Navigator>
     );

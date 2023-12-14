@@ -5,19 +5,17 @@ import { getCinemas } from '../../services/APIservice'
 
 export function HomeScreen({navigation, route}) {
   const [data, setData] = useState('')
-  async function handleMovies() {
+  async function handleCinemas() {
     try {
       const cinemas = await getCinemas();
-      //This is accessing a cinema for a movie and checking its ID. This will be useful
-      //for getting the right movies when you click on a cinema
       setData(cinemas)
     } catch (error) {
       console.error('Error:', error);
     }
   }
   useEffect(() => {
-    handleMovies()
-    const refreshInterval = setInterval(handleMovies, 5000);
+    handleCinemas()
+    const refreshInterval = setInterval(handleCinemas, 5000);
 
     return () => clearInterval(refreshInterval);
   }, []);
