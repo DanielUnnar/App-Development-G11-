@@ -3,29 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { getCinemas } from '../../services/APIservice'
 
-const windowWidth = Dimensions.get('window').width;
-
-export function HomeScreen({ navigation, route }) {
-  const [data, setData] = useState('');
-
-  async function handleMovies() {
+export function HomeScreen({navigation, route}) {
+  const [data, setData] = useState('')
+  async function handleCinemas() {
     try {
       const cinemas = await getCinemas();
-      setData(cinemas);
+      const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
+      setData(sortedCinemas)
+
+const windowWidth = Dimensions.get('window').width;
+
     } catch (error) {
       console.error('Error:', error);
     }
   }
 
   useEffect(() => {
-    handleMovies();
-    const refreshInterval = setInterval(handleMovies, 5000);
+    handleCinemas()
+    const refreshInterval = setInterval(handleCinemas, 5000);
 
     return () => clearInterval(refreshInterval);
   }, []);
 
   function handlePress(item) {
-    navigation.navigate("Cinema Details", { item: item });
+    console.log(item)
+    navigation.navigate("Cinema Details", {cinema: item})
   }
 
   const renderCinemas = ({ item }) => {
