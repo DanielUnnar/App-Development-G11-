@@ -50,7 +50,6 @@ export function MoviesScreen({ navigation, route }) {
   );
 
   function handlePress(item) {
-    console.log(item)
     navigation.navigate("Trailer", {item: item})
   }
 
@@ -71,26 +70,31 @@ export function MoviesScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#333333', // Set background color to transparent
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingTop: 20,
+    justifyContent: 'center',
   },
   flatListContainer: {
-    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   movieContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#44a6c6',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: 'rgba(68, 166, 198, 0.1)',
     padding: 10,
     height: windowWidth / 1 - 32, // Adjust the height based on the screen width
-    width: windowWidth / 2 - 32, // Adjust the width based on the screen width
+    width: windowWidth / 2 - 16, // Adjust the width based on the screen width
   },
   posterImage: {
-    height: '70%', // Adjust the height percentage to maintain a consistent aspect ratio
+    height: '80%', // Adjust the height percentage to maintain a consistent aspect ratio
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 8,
@@ -108,6 +112,6 @@ const styles = StyleSheet.create({
   },
   releaseDate: {
     fontSize: 14,
-    color: '#555',
+    color: 'white',
   },
 });
