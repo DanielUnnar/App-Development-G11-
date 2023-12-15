@@ -63,6 +63,7 @@ export function CinemaDetails({navigation, route}) {
             <View style={styles.header}>
                 <Text style={styles.h1}>{cinema.name}</Text>
                 <Text style={styles.text}>{cinema['address\t']}, {cinema.city}</Text>
+
                 {cinema.website && (
                     <TouchableOpacity onPress={() => Linking.openURL("https://" + cinema.website)}>
                         <Text style={styles.website}>{cinema.website}</Text>
@@ -71,6 +72,7 @@ export function CinemaDetails({navigation, route}) {
                 {cinema.phone && <Text style={styles.text}>Phone: {cinema.phone}</Text>}
                 {cinema.description && <Text style={styles.text1}>{cinema.description.replaceAll("<br>", "").replaceAll("<b>", "")}</Text>}
             </View>
+                 
             <View style={styles.body}>
                 <FlatList
                     data={movies}
@@ -87,24 +89,36 @@ export function CinemaDetails({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#333333',
         justifyContent: 'space-between',
     },
     text: {
+        color: 'white',
         fontSize: 16,
         textAlign: 'center',
     },
     text1: {
+        color: 'white',
         fontSize: 13,
         paddingLeft: 20,
         paddingRight: 20,
     },
     h1: {
+        color: 'white',
         fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
         borderTopWidth: 1,
         marginTop: 25,
+    },
+    h3: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginVertical: 10,
+        marginLeft: 20,
+        marginBottom: 10,
     },
     body: {
         marginBottom: 200,
@@ -114,7 +128,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         textDecorationLine: 'underline',
-        color: 'blue',
+        color: '#44a6c6',
         borderTopWidth: 1,
         paddingTop: 16,
     },
@@ -123,7 +137,7 @@ const styles = StyleSheet.create({
     },
     movieContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#44a6c6',
         alignItems: 'center',
         justifyContent: 'center',
         margin: 8,
@@ -131,12 +145,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         padding: 16,
-        height: 'auto', // Allow the container to adjust its height based on content
-        width: windowWidth / 2 - 32, // Adjust the width based on the screen width for two columns
-        overflow: 'hidden', // Handle content overflow
+        height: 'auto', 
+        width: windowWidth / 2 - 32,
+        overflow: 'hidden', 
     },    
     posterImage: {
-        height: 180, // Adjust the height percentage to maintain a consistent aspect ratio
+        height: 180, 
         width: '100%',
         resizeMode: 'cover',
         borderRadius: 8,
@@ -152,16 +166,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        maxWidth: '100%', // Ensure the title doesn't exceed the container width
+        maxWidth: '100%', 
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
     },    
     releaseDate: {
         fontSize: 14,
-        color: '#555',
+        color: 'white',
         marginTop: 4,
-        maxWidth: '100%', // Ensure the title doesn't exceed the container width
+        maxWidth: '100%', 
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
