@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import YoutubeIframe from "react-native-youtube-iframe";
+import styles from "./trailerStyles";
 
 export function TrailerScreen({ route }) {
   const { item } = route.params;
@@ -51,16 +52,3 @@ export function TrailerScreen({ route }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#333333',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    marginBottom: 10,
-  },
-});
