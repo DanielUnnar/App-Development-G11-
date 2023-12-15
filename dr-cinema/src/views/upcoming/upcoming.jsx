@@ -16,7 +16,8 @@ export function MoviesScreen({ navigation }) {
   useEffect(() => {
   async function handleMovies() {
     try {
-      const moviesData = await getUpcoming();
+      const moviesData = await getUpcoming(token);
+      console.log(moviesData)
       
         const sortedMovies = moviesData.sort((a, b) => {
           const dateA = new Date(a['release-dateIS']);

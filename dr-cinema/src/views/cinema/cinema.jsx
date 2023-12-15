@@ -1,44 +1,44 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Linking, TouchableOpacity, FlatList, Button, Image, Dimensions } from "react-native";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Linking, TouchableOpacity, FlatList, Button, Image, Dimensions, ScrollView } from "react-native";
 import { getMovies } from '../../services/APIservice';
 import { useAuth } from '../../services/AuthContext';
-import { setMovies } from '../../redux/reducers/moviesReducer'
 const windowWidth = Dimensions.get('window').width;
 
 export function CinemaDetails({navigation, route}) {
     const { token } = useAuth();
     const { cinema } = route.params;
-    const dispatch = useDispatch();
-    const movies = useSelector((state) => state.movies);
-  
+    const [movies, setMovies] = useState('');
+
+    async function handleMovies() {
+        try {
+            const apimovies = await getMovies(token);
+            setMovies(filterMovies(apimovies));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function filterMovies(movies) {
+        const filteredMovies = [];
+        movies.forEach(movie => {
+            movie.showtimes.forEach(theater => {
+                if (theater.cinema.id === cinema.id) {
+                    filteredMovies.push(movie);
+                }
+            });
+        });
+        return filteredMovies;
+    }
 
     useEffect(() => {
-        const handleMovies = async () => {
-          try {
-            const apimovies = await getMovies(token);
-            const filteredMovies = filterMovies(apimovies);
-            dispatch(setMovies(filteredMovies));
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        };
-    
         handleMovies();
         const refreshInterval = setInterval(handleMovies, 5000);
-        console.log(movies)
-    
+
         return () => clearInterval(refreshInterval);
-      }, [dispatch, token]);
-    
-      function filterMovies(movies) {
-        return movies.filter((movie) =>
-          movie.showtimes.some((theater) => theater.cinema.id === cinema.id)
-        );
-      }
+    }, []);
 
     const renderMovies = ({ item }) => (
-        <TouchableOpacity onPress={() => navigation.navigate('Movie Details', {item: item, cinemaid: cinema.id})}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Movie Details', {item: item, cinemaid: cinema.id})}>
             <View style={styles.movieContainer}>
                 {item.omdb && item.omdb.length > 0 && item.omdb[0].Poster ? (
                     <Image source={{ uri: item.omdb[0].Poster }} style={styles.posterImage} />
@@ -59,7 +59,7 @@ export function CinemaDetails({navigation, route}) {
     );
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.h1}>{cinema.name}</Text>
                 <Text style={styles.text}>{cinema['address\t']}, {cinema.city}</Text>
@@ -76,14 +76,14 @@ export function CinemaDetails({navigation, route}) {
                  
             <View style={styles.body}>
                 <FlatList
-                    data={movies.movies}
+                    data={movies}
                     renderItem={renderMovies}
                     keyExtractor={item => item.id.toString()}
-                    numColumns={2}
                     contentContainerStyle={styles.flatListContainer}
+                    horizontal
                 />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#333333',
-        justifyContent: 'space-between',
     },
     text: {
         color: 'white',
@@ -122,8 +121,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     body: {
-        marginBottom: 200,
-        paddingHorizontal: 16,
+        flex: 1,
     },
     website: {
         textAlign: 'center',
@@ -135,6 +133,8 @@ const styles = StyleSheet.create({
     },
     flatListContainer: {
         paddingVertical: 10,
+        height: 550,
+        
     },
     movieContainer: {
         flex: 1,
@@ -146,34 +146,35 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         padding: 16,
-        height: 'auto', 
-        width: windowWidth / 2 - 32,
+        width: windowWidth / 1 - 100,
         overflow: 'hidden', 
     },    
     posterImage: {
-        height: 180, 
+        height: '80%', 
         width: '100%',
         resizeMode: 'cover',
         borderRadius: 8,
-        marginBottom: 8,
+
     },
     titleContainer: {
-        justifyContent: 'center',
         alignItems: 'center',
         marginTop: 16,
-        paddingBottom: 30,
     },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         maxWidth: '100%',
+        
     },    
     releaseDate: {
         fontSize: 14,
         color: 'white',
-        marginTop: 4,
-        maxWidth: '100%', 
         textAlign: 'center',
+    },
+    button: {
+        height: '95%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
