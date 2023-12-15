@@ -1,16 +1,20 @@
-// LoginScreen.js
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useAuth } from '../../services/AuthContext'
+import { useAuth } from '../../services/AuthContext';
 
 export function LoginScreen({ navigation }) {
-  const { token, updateToken } = useAuth();
-  const { credentials, setCredentials, getToken } = useAuth();
+  const { token, handleLogin } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function handleLoginPress() {
-    const newtoken = await getToken();
-    if (newtoken !== undefined) {
-      navigation.navigate('Default');
+  async function handleLoginPress(username, password) {
+    try {
+      await handleLogin(username, password)
+      if (token) {
+        navigation.navigate('Default')
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
@@ -18,16 +22,16 @@ export function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <TextInput
         placeholder='Name'
-        value={credentials.username}
-        onChangeText={(text) => setCredentials({ ...credentials, username: text })}
+        value={username}
+        onChangeText={(text) => setUsername(text)}
       />
       <TextInput
         placeholder='Password'
-        value={credentials.password}
-        onChangeText={(text) => setCredentials({ ...credentials, password: text })}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
         secureTextEntry
       />
-      <TouchableOpacity onPress={handleLoginPress}>
+      <TouchableOpacity onPress={() => handleLoginPress(username, password)}>
         <Text>Login</Text>
       </TouchableOpacity>
     </View>

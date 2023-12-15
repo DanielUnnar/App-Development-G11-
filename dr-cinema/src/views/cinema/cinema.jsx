@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Linking, TouchableOpacity, FlatList, Button, Image, Dimensions } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../services/APIservice';
 import { useAuth } from '../../services/AuthContext';
+import { setMovies } from '../../redux/reducers/moviesReducer'
 const windowWidth = Dimensions.get('window').width;
 
 export function CinemaDetails({navigation, route}) {
     const { token } = useAuth();
     const { cinema } = route.params;
-    const [movies, setMovies] = useState('');
-
-    async function handleMovies() {
-        try {
-            const apimovies = await getMovies(token);
-            setMovies(filterMovies(apimovies));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    function filterMovies(movies) {
-        const filteredMovies = [];
-        movies.forEach(movie => {
-            movie.showtimes.forEach(theater => {
-                if (theater.cinema.id === cinema.id) {
-                    filteredMovies.push(movie);
-                }
-            });
-        });
-        return filteredMovies;
-    }
+    const dispatch = useDispatch();
+    const movies = useSelector((state) => state.movies);
+  
 
     useEffect(() => {
+        const handleMovies = async () => {
+          try {
+            const apimovies = await getMovies(token);
+            const filteredMovies = filterMovies(apimovies);
+            dispatch(setMovies(filteredMovies));
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+    
         handleMovies();
         const refreshInterval = setInterval(handleMovies, 5000);
-
+        console.log(movies)
+    
         return () => clearInterval(refreshInterval);
-    }, []);
+      }, [dispatch, token]);
+    
+      function filterMovies(movies) {
+        return movies.filter((movie) =>
+          movie.showtimes.some((theater) => theater.cinema.id === cinema.id)
+        );
+      }
 
     const renderMovies = ({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('Movie Details', {item: item, cinemaid: cinema.id})}>
@@ -73,7 +73,7 @@ export function CinemaDetails({navigation, route}) {
             </View>
             <View style={styles.body}>
                 <FlatList
-                    data={movies}
+                    data={movies.movies}
                     renderItem={renderMovies}
                     keyExtractor={item => item.id.toString()}
                     numColumns={2}

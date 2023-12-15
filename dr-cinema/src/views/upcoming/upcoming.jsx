@@ -1,38 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { upcomingMovies } from '../../services/APIservice';
+import { getUpcoming } from '../../services/APIservice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUpcomingMovies } from '../../redux/reducers/upcomingMoviesReducer';
 
 const windowWidth = Dimensions.get('window').width;
 
-export function MoviesScreen({ navigation, route }) {
-  const [movies, setMovies] = useState([]);
-
-  async function handleMovies() {
-    try {
-      const moviesData = await upcomingMovies();
-      
-      // Sort movies by release date in ascending order
-      const sortedMovies = moviesData.sort((a, b) => {
-        const dateA = new Date(a['release-dateIS']);
-        const dateB = new Date(b['release-dateIS']);
-        return dateA - dateB;
-      });
-
-      setMovies(sortedMovies);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+export function MoviesScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.upcomingMovies);
+  const token = useSelector((state) => state.token);
 
   useEffect(() => {
+    const handleMovies = async () => {
+      try {
+        const moviesData = await getUpcoming(token);
+
+        // Sort movies by release date in ascending order
+        const sortedMovies = moviesData.sort((a, b) => {
+          const dateA = new Date(a['release-dateIS']);
+          const dateB = new Date(b['release-dateIS']);
+          return dateA - dateB;
+        });
+
+        dispatch(setUpcomingMovies(sortedMovies));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
     handleMovies();
     const refreshInterval = setInterval(handleMovies, 5000);
 
     return () => clearInterval(refreshInterval);
-  }, []);
+  }, [dispatch]);
 
-
+  function handlePress(item) {
+    navigation.navigate("Trailer", {item: item})
+  }
+  
   const renderMovieItem = ({ item }) => (
     <TouchableOpacity onPress={() => handlePress(item)}>
       <View style={styles.movieContainer}>
@@ -49,15 +56,10 @@ export function MoviesScreen({ navigation, route }) {
     </TouchableOpacity>
   );
 
-  function handlePress(item) {
-    navigation.navigate("Trailer", {item: item})
-  }
-
-  
   return (
     <View style={styles.container}>
       <FlatList
-        data={movies}
+        data={movies.upcomingMovies}
         keyExtractor={(item) => item._id}
         numColumns={2}
         renderItem={renderMovieItem}
@@ -66,6 +68,7 @@ export function MoviesScreen({ navigation, route }) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
