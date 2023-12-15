@@ -7,23 +7,28 @@ export function TrailerScreen({ route }) {
   const [trailerKey, setTrailerKey] = useState("");
 
   useEffect(() => {
-    // Check if the movie has trailers
-    if (item.trailers && item.trailers.length > 0) {
-      // Find the "Official Trailer" in the trailers list
-      const officialTrailer = item.trailers[0].results.find(
-        (trailer) => trailer.name === 'Official Trailer'
-      );
 
-      // If found, get the key of the official trailer
+    if (item.trailers && item.trailers.length > 0) {
+
+      const officialTrailer = item.trailers[0].results.find(
+        (trailer) => trailer.name.includes('Official Trailer')
+      );
+      const teaser = item.trailers[0].results.find(
+        (trailer) => trailer.name.includes('Teaser')
+      );
       if (officialTrailer) {
         const officialTrailerKey = officialTrailer.key;
         setTrailerKey(officialTrailerKey);
+      
+      } else if (teaser) {
+        const teaserKey = teaser.key;
+        setTrailerKey(teaserKey);
       } else {
-        // If not found, show a message
+        
         alert('Sorry, no official trailer available for this movie.');
       }
     } else {
-      // If no trailers are available, show a message
+      
       alert('Sorry, no trailers available for this movie.');
     }
   }, [item]);
@@ -35,8 +40,8 @@ export function TrailerScreen({ route }) {
         <YoutubeIframe
           height={300}
           width={400}
-          play={true} // Start playing the video automatically
-          videoId={trailerKey} // Set the video ID to the retrieved trailer key
+          play={true} 
+          videoId={trailerKey}
         />
       ) : (
         <Text>No trailer available</Text>
