@@ -11,7 +11,7 @@ export function TrailerScreen({ route }) {
     if (item.trailers && item.trailers.length > 0) {
 
       const officialTrailer = item.trailers[0].results.find(
-        (trailer) => trailer.name.includes('Official Trailer')
+        (trailer) => trailer.name.includes('Official') && trailer.type === 'Trailer'
       );
       const teaser = item.trailers[0].results.find(
         (trailer) => trailer.name.includes('Teaser')
@@ -25,7 +25,7 @@ export function TrailerScreen({ route }) {
         setTrailerKey(teaserKey);
       } else {
         
-        alert('Sorry, no official trailer available for this movie.');
+        alert('Sorry, no trailers available for this movie.');
       }
     } else {
       
@@ -35,16 +35,17 @@ export function TrailerScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{item.title}</Text>
+      <Text style={styles.text}> {item.title}</Text>
       {trailerKey ? (
         <YoutubeIframe
-          height={300}
-          width={400}
+          height={'40%'}
+          width={'95%'}
           play={true} 
           videoId={trailerKey}
         />
-      ) : (
-        <Text>No trailer available</Text>
+      )
+       : (
+        <Text style={styles.text}>No trailer available</Text>
       )}
     </View>
   );
@@ -53,12 +54,13 @@ export function TrailerScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#333333',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
+    color: 'white',
+    fontSize: 18,
     marginBottom: 10,
   },
 });
