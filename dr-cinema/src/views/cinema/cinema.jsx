@@ -70,6 +70,7 @@ export function CinemaDetails({navigation, route}) {
                     </TouchableOpacity>
                 )}
                 {cinema.phone && <Text style={styles.text}>Phone: {cinema.phone}</Text>}
+                <Text style={styles.h3}>About:</Text>
                 {cinema.description && <Text style={styles.text1}>{cinema.description.replaceAll("<br>", "").replaceAll("<b>", "")}</Text>}
             </View>
                  
@@ -166,19 +167,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        maxWidth: '100%', 
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
+        maxWidth: '100%',
     },    
     releaseDate: {
         fontSize: 14,
         color: 'white',
         marginTop: 4,
         maxWidth: '100%', 
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
         textAlign: 'center',
     },
 });
