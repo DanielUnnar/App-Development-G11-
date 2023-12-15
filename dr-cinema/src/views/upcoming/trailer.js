@@ -11,7 +11,7 @@ export function TrailerScreen({ route }) {
     if (item.trailers && item.trailers.length > 0) {
 
       const officialTrailer = item.trailers[0].results.find(
-        (trailer) => trailer.name.includes('Official') && trailer.type === 'Trailer'
+        (trailer) => trailer.name.includes('Official') && trailer.name.includes('Trailer')
       );
       const teaser = item.trailers[0].results.find(
         (trailer) => trailer.name.includes('Teaser')
