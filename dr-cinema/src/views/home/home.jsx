@@ -1,34 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
+// HomeScreen.js
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
-import { getCinemas } from '../../services/APIservice'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+import { getCinemas } from '../../services/APIservice';
+import { useAuth } from '../../services/AuthContext';
+
 const windowWidth = Dimensions.get('window').width;
 
-export function HomeScreen({navigation, route}) {
-  const [data, setData] = useState('')
+export function HomeScreen({ navigation, route }) {
+  const { token } = useAuth();
+  const [data, setData] = useState('');
+
   async function handleCinemas() {
     try {
-      const cinemas = await getCinemas();
+      const cinemas = await getCinemas(token);
       const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
-      setData(sortedCinemas)
-
-
-
+      setData(sortedCinemas);
     } catch (error) {
       console.error('Error:', error);
     }
   }
 
   useEffect(() => {
-    handleCinemas()
+    handleCinemas();
     const refreshInterval = setInterval(handleCinemas, 5000);
 
     return () => clearInterval(refreshInterval);
   }, []);
 
   function handlePress(item) {
-    console.log(item)
-    navigation.navigate("Cinema Details", {cinema: item})
+    console.log(item);
+    navigation.navigate('Cinema Details', { cinema: item });
   }
 
   const renderCinemas = ({ item }) => {
