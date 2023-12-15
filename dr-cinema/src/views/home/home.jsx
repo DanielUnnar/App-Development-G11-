@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { getCinemas } from '../../services/APIservice'
 
 export function HomeScreen({navigation, route}) {
@@ -10,39 +10,53 @@ export function HomeScreen({navigation, route}) {
       const cinemas = await getCinemas();
       const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
       setData(sortedCinemas)
+
+const windowWidth = Dimensions.get('window').width;
+
     } catch (error) {
       console.error('Error:', error);
     }
   }
+
   useEffect(() => {
     handleCinemas()
     const refreshInterval = setInterval(handleCinemas, 5000);
 
     return () => clearInterval(refreshInterval);
   }, []);
+
   function handlePress(item) {
     console.log(item)
     navigation.navigate("Cinema Details", {cinema: item})
   }
+
   const renderCinemas = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => handlePress(item)}> 
-        <View style={styles.cinema}>
-          <Text style={styles.text}>{item.name}</Text>
-          <Text style={styles.text}>{item.website}</Text>
-        </View>
+      <TouchableOpacity onPress={() => handlePress(item)}>
+        <ImageBackground
+          source={{ uri: 'https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2022/04/112a7-movie-theatres-in-mumbai.jpg?fit=1000%2C623&ssl=1' }}
+          style={styles.cinemaBackground}
+        >
+          <View style={styles.cinema}>
+            <Text style={styles.header}>{item.name}</Text>
+            <Text style={styles.text}>{item.website}</Text>
+          </View>
+        </ImageBackground>
       </TouchableOpacity>
     );
   };
-  
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Cinemas</Text>
+      </View>
       <FlatList
-      style={styles.list}
-      data={data}
-      renderItem={renderCinemas}
-      keyExtractor={item => item.id.toString()}
+        style={styles.list}
+        data={data}
+        renderItem={renderCinemas}
+        numColumns={2}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );
@@ -51,12 +65,42 @@ export function HomeScreen({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#333333',
     alignItems: 'center',
-    flexDirection: 'row',
-    paddingTop: 40,
+    paddingTop: 10,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  headerContainer: {
+    marginBottom: 10,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  list: {
+    flex: 1,
+  },
+  cinemaBackground: {
+    flex: 1,
+    resizeMode: 'cover',
     justifyContent: 'center',
-    backgroundColor: '#FFFDD0'
+    margin: 8,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  cinema: {
+    backgroundColor: 'rgba(68, 166, 198, 0.8)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    height: windowWidth / 2 - 32,
+    width: windowWidth / 2 - 16,
   },
   text: {
     textAlign: 'center',
@@ -65,16 +109,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     paddingTop: 10,
-  },
-  cinema: {
-    borderWidth: 1,
-    borderRadius: 40,
-    alignItems: 'center',
-    padding: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: '#FFFFFA'
+    color: 'white',
   },
 });
