@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { getCinemas } from '../../services/APIservice'
+const windowWidth = Dimensions.get('window').width;
 
 export function HomeScreen({navigation, route}) {
   const [data, setData] = useState('')
@@ -11,7 +12,7 @@ export function HomeScreen({navigation, route}) {
       const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
       setData(sortedCinemas)
 
-const windowWidth = Dimensions.get('window').width;
+
 
     } catch (error) {
       console.error('Error:', error);
