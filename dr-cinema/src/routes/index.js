@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { LoginScreen } from '../views/login/login';
 import { HomeScreen } from '../views/home/home';
 import { MoviesScreen } from '../views/upcoming/upcoming';
 import { CinemaDetails } from '../views/cinema/cinema';
@@ -47,10 +48,11 @@ export function StackNavigator() {
           screenOptions={{headerStyle: { backgroundColor: '#333333' },
           headerTintColor: '#44a6c6',
           }}>
-        <Stack.Screen name="Default" component={TabNavigator} options={{headerShown: false,}}/>
-        <Stack.Screen name="Cinema Details" component={CinemaDetails} />
-        <Stack.Screen name="Movie Details" component={MovieDetails} />
-        <Stack.Screen name="Trailer" component={TrailerScreen} />
+          <Stack.Screen name="Login" component={LoginScreen}/>
+          <Stack.Screen name="Default" component={TabNavigator} options={{headerShown: false,}}/>
+          <Stack.Screen name="Cinema Details" component={CinemaDetails} />
+          <Stack.Screen name="Movie Details" component={MovieDetails} />
+          <Stack.Screen name="Trailer" component={TrailerScreen} />
         </Stack.Navigator>
     );
 }

@@ -13,6 +13,7 @@ export function HomeScreen({navigation, route}) {
       const sortedCinemas = cinemas.slice().sort((a, b) => a.name.localeCompare(b.name));
       setData(sortedCinemas)
 
+
     } catch (error) {
       console.error('Error:', error);
     }
