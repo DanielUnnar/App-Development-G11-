@@ -19,30 +19,31 @@ export function LoginScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder='Name'
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        placeholder='Password'
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      <TouchableOpacity onPress={() => handleLoginPress(username, password)}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={{uri: 'https://media2.zipcar.com/drupal-presales/files/1c_movietheaters_0.jpg'}} // Replace with your background image
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Welcome Back!</Text>
+        {error && <Text style={styles.errorText}>{error}</Text>}
+        <TextInput
+          style={styles.input}
+          placeholder='Username'
+          value={credentials.username}
+          onChangeText={(text) => setCredentials({ ...credentials, username: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          value={credentials.password}
+          onChangeText={(text) => setCredentials({ ...credentials, password: text })}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    padding: 16,
-  },
-});

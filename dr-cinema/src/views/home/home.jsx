@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#f38902',
   },
   list: {
     flex: 1,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cinema: {
-    backgroundColor: 'rgba(68, 166, 198, 0.8)',
+    backgroundColor: 'rgba(68, 166, 198, 0.7)',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,

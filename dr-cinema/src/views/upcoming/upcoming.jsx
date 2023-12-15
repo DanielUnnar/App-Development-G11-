@@ -5,6 +5,7 @@ import { getUpcoming } from '../../services/APIservice';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUpcomingMovies } from '../../redux/reducers/upcomingMoviesReducer';
 
+
 const windowWidth = Dimensions.get('window').width;
 
 export function MoviesScreen({ navigation }) {
@@ -16,6 +17,16 @@ export function MoviesScreen({ navigation }) {
     const handleMovies = async () => {
       try {
         const moviesData = await getUpcoming(token);
+  async function handleMovies() {
+    try {
+      const moviesData = await getUpcoming();
+      
+      // Sort movies by release date in ascending order
+      const sortedMovies = moviesData.sort((a, b) => {
+        const dateA = new Date(a['release-dateIS']);
+        const dateB = new Date(b['release-dateIS']);
+        return dateA - dateB;
+      });
 
         // Sort movies by release date in ascending order
         const sortedMovies = moviesData.sort((a, b) => {
@@ -73,16 +84,13 @@ export function MoviesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333333', // Set background color to transparent
+    backgroundColor: '#333333', 
     alignItems: 'center',
     flexDirection: 'row',
     paddingTop: 20,
     justifyContent: 'center',
   },
-  flatListContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   movieContainer: {
     flex: 1,
     backgroundColor: '#44a6c6',
@@ -93,25 +101,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(68, 166, 198, 0.1)',
     padding: 10,
-    height: windowWidth / 1 - 32, // Adjust the height based on the screen width
-    width: windowWidth / 2 - 16, // Adjust the width based on the screen width
+    height: windowWidth / 1 - 32,
+    width: windowWidth / 2 - 16, 
   },
   posterImage: {
-    height: '80%', // Adjust the height percentage to maintain a consistent aspect ratio
+    height: '80%', 
     width: '100%',
     resizeMode: 'cover',
     borderRadius: 8,
     marginBottom: 8,
   },
   titleContainer: {
-    height: '15%', // Adjust the height percentage
+    height: '15%', 
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center', // Center the text within the title container
+    textAlign: 'center', 
   },
   releaseDate: {
     fontSize: 14,
