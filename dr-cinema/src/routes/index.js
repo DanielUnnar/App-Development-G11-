@@ -29,10 +29,10 @@ function TabNavigator() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarStyle: { backgroundColor: '#333333' }, 
-        tabBarActiveTintColor: '#44a6c6', 
+        tabBarActiveTintColor: '#f38902', 
         tabBarInactiveTintColor: 'gray',
         headerStyle: { backgroundColor: '#333333' },
-        headerTintColor: '#44a6c6',
+        headerTintColor: '#f38902',
       })}
       
     >
@@ -46,9 +46,9 @@ export function StackNavigator() {
     return (
         <Stack.Navigator 
           screenOptions={{headerStyle: { backgroundColor: '#333333' },
-          headerTintColor: '#44a6c6',
+          headerTintColor: '#f38902',
           }}>
-          <Stack.Screen name="Login" component={LoginScreen}/>
+          <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false,}}/>
           <Stack.Screen name="Default" component={TabNavigator} options={{headerShown: false,}}/>
           <Stack.Screen name="Cinema Details" component={CinemaDetails} />
           <Stack.Screen name="Movie Details" component={MovieDetails} />

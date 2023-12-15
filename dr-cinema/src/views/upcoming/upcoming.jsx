@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { upcomingMovies } from '../../services/APIservice';
+import { getUpcoming } from '../../services/APIservice';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -10,7 +10,7 @@ export function MoviesScreen({ navigation, route }) {
 
   async function handleMovies() {
     try {
-      const moviesData = await upcomingMovies();
+      const moviesData = await getUpcoming();
       
       // Sort movies by release date in ascending order
       const sortedMovies = moviesData.sort((a, b) => {
