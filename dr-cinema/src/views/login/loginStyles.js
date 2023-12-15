@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)', // Adjust the opacity and color as needed
+        backgroundColor: 'rgba(0, 0, 0, 0.6)', 
         padding: 20,
       },
       title: {

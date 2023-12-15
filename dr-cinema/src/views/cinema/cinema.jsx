@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
-        borderTopWidth: 1,
         marginTop: 25,
     },
     h3: {
@@ -128,7 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textDecorationLine: 'underline',
         color: '#44a6c6',
-        borderTopWidth: 1,
         paddingTop: 16,
     },
     flatListContainer: {

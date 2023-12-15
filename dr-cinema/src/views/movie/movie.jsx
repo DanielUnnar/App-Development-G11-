@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 10,
-        borderLeftWidth: 1,
     },
     purchasebutton: {
 

@@ -21,7 +21,7 @@ export function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={{uri: 'https://media2.zipcar.com/drupal-presales/files/1c_movietheaters_0.jpg'}} // Replace with your background image
+      source={{uri: 'https://media2.zipcar.com/drupal-presales/files/1c_movietheaters_0.jpg'}} 
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
