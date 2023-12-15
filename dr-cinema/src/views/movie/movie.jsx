@@ -11,7 +11,6 @@ export function MovieDetails({navigation, route}) {
             .map(cinema => cinema.schedule);
         schedules.flat().forEach(item => {
             item.time = item.time.replace(".", ":")
-            console.log(item.time)
         })
         setFilteredSchedules(schedules.flat());
     }
