@@ -1,11 +1,11 @@
-import { decode as atob, encode as btoa } from 'base-64';
+import { useAuth } from './AuthContext';
 
-export async function getToken() {
+export async function getMovies(token) {
   try {
-    const response = await fetch('https://api.kvikmyndir.is/authenticate', {
-      method: 'POST',
+    const response = await fetch('https://api.kvikmyndir.is/movies', {
+      method: 'GET',
       headers: new Headers({
-        'Authorization': 'Basic ' + btoa('G11:password123'),
+        'x-access-token': token,
       }),
     });
 
@@ -14,18 +14,18 @@ export async function getToken() {
     }
 
     const data = await response.json();
-    return data.token;
+    return data;
   } catch (error) {
     console.error('Error:', error);
   }
 }
 
-export async function getMovies() {
+export async function getCinemas(token) {
     try {
-        const response = await fetch('https://api.kvikmyndir.is/movies', {
-          method: 'Get',
+        const response = await fetch('https://api.kvikmyndir.is/theaters', {
+          method: 'GET',
           headers: new Headers({
-            'x-access-token': await getToken(),
+            'x-access-token': token,
           }),
         });
     
@@ -38,44 +38,26 @@ export async function getMovies() {
       } catch (error) {
         console.error('Error:', error);
       }
-    }
+}
 
-export async function getCinemas() {
+export async function getUpcoming(token) {
     try {
-        const response = await fetch('https://api.kvikmyndir.is/theaters', {
-            method: 'Get',
-            headers: new Headers({
-            'x-access-token': await getToken(),
-            }),
+        const response = await fetch('https://api.kvikmyndir.is/upcoming', {
+          method: 'GET',
+          headers: new Headers({
+            'x-access-token': token,
+          }),
         });
     
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok');
         }
     
         const data = await response.json();
         return data;
-        } catch (error) {
+      } catch (error) {
         console.error('Error:', error);
-        }
-    }
-
-    export async function upcomingMovies() {
-      try {
-          const response = await fetch('https://api.kvikmyndir.is/upcoming', {
-              method: 'Get',
-              headers: new Headers({
-              'x-access-token': await getToken(),
-              }),
-          });
-      
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-      
-          const data = await response.json();
-          return data;
-          } catch (error) {
-          console.error('Error:', error);
-          }
       }
+}
+
+// Similarly, modify other functions that use the token
