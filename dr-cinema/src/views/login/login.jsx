@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
-import {  View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
-import { useAuth } from '../../services/AuthContext'
-import styles from './loginStyles';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useAuth } from '../../services/AuthContext';
 
 export function LoginScreen({ navigation }) {
-  const { token, updateToken } = useAuth();
-  const { credentials, setCredentials, getToken } = useAuth();
-  const [error, setError] = useState(null);
+  const { token, handleLogin } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function handleLoginPress() {
+  async function handleLoginPress(username, password) {
     try {
-      const newToken = await getToken();
-
-      // Check if the token is undefined (login failed)
-      if (newToken === undefined) {
-        setError('Invalid username or password. Please try again.');
-      } else {
-        // Reset the error if login is successful
-        setError(null);
-        navigation.navigate('Default');
+      await handleLogin(username, password)
+      if (token) {
+        navigation.navigate('Default')
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error('Error:', error);
     }
   }
 
