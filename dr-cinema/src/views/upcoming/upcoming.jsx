@@ -14,21 +14,10 @@ export function MoviesScreen({ navigation }) {
   const token = useSelector((state) => state.token);
 
   useEffect(() => {
-    const handleMovies = async () => {
-      try {
-        const moviesData = await getUpcoming(token);
   async function handleMovies() {
     try {
       const moviesData = await getUpcoming();
       
-      // Sort movies by release date in ascending order
-      const sortedMovies = moviesData.sort((a, b) => {
-        const dateA = new Date(a['release-dateIS']);
-        const dateB = new Date(b['release-dateIS']);
-        return dateA - dateB;
-      });
-
-        // Sort movies by release date in ascending order
         const sortedMovies = moviesData.sort((a, b) => {
           const dateA = new Date(a['release-dateIS']);
           const dateB = new Date(b['release-dateIS']);

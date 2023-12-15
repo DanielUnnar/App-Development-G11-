@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { useAuth } from '../../services/AuthContext';
+import styles from './loginStyles'
 
 export function LoginScreen({ navigation }) {
   const { token, handleLogin } = useAuth();
@@ -25,21 +26,20 @@ export function LoginScreen({ navigation }) {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Welcome Back!</Text>
-        {error && <Text style={styles.errorText}>{error}</Text>}
         <TextInput
           style={styles.input}
           placeholder='Username'
-          value={credentials.username}
-          onChangeText={(text) => setCredentials({ ...credentials, username: text })}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
         />
         <TextInput
           style={styles.input}
           placeholder='Password'
-          value={credentials.password}
-          onChangeText={(text) => setCredentials({ ...credentials, password: text })}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
-        <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => handleLoginPress(username, password)}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </View>
