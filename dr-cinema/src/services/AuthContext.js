@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { decode as atob, encode as btoa } from 'base-64';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../redux/actions/tokenActions'
+import { setToken } from '../redux/reducers/tokenReducer';
 
 const AuthContext = createContext();
 
