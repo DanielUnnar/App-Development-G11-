@@ -11,7 +11,7 @@ import { appstore } from './src/redux/store'
 export default function App() {
     return (
       <Provider store={appstore}>
-        <AuthProvider>
+        <AuthProvider> 
           <NavigationContainer>
             <StackNavigator/>
           </NavigationContainer>

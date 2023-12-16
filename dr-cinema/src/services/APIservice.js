@@ -1,3 +1,28 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
+
+export const apiService = createApi({
+    reducerPath: "kvikmyndirApi",
+    baseQuery: fetchBaseQuery({baseUrl: 'https://api.kvikmyndir.is/', 
+    prepareHeaders: (headers) => {
+        
+    }}),
+    
+    endpoints: (builder) => ({
+        getMovies: builder.query({
+            query: () => "movies"
+        }),
+        getCinemas: builder.query({
+            query: () => "theaters"
+        }),
+        getUpcoming: builder.query({
+            query: () => "upcoming",
+            
+        })
+
+    })
+
+})
+
 export async function getMovies(token) {
 
   try {
