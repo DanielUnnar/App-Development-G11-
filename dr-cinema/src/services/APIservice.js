@@ -1,87 +1,40 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { useSelector } from 'react-redux';
 
 export const apiService = createApi({
-    reducerPath: "kvikmyndirApi",
-    baseQuery: fetchBaseQuery({baseUrl: 'https://api.kvikmyndir.is/', 
+  reducerPath: 'kvikmyndirApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api.kvikmyndir.is',
     prepareHeaders: (headers) => {
-        
-    }}),
-    
-    endpoints: (builder) => ({
-        getMovies: builder.query({
-            query: () => "movies"
-        }),
-        getCinemas: builder.query({
-            query: () => "theaters"
-        }),
-        getUpcoming: builder.query({
-            query: () => "upcoming",
-            
-        })
+      const token = useSelector((state) => state.token);
+      if (token) {
+        headers.set('x-access-token', token);
+      }
+      return headers;
+    },
+  }),
+  endpoints: (builder) => ({
+    getMovies: builder.query({
+      query: () => ({
+        url: 'movies',
+        method: 'get',
+      })
+    }),
+    getCinemas: builder.query({
+      query: () => ({
+        url: 'theaters',
+        method: 'get',
+      })
+    }),
+    getUpcoming: builder.query({
+      query: () => ({
+        url: 'upcoming',
+        method: 'get',
+      })
+    }),
+  }),
+});
 
-    })
+export const { endpoints } = apiService;
 
-})
-
-export async function getMovies(token) {
-
-  try {
-    const response = await fetch('https://api.kvikmyndir.is/movies', {
-      method: 'GET',
-      headers: new Headers({
-        'x-access-token': token,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-export async function getCinemas(token) {
-
-  try {
-    const response = await fetch('https://api.kvikmyndir.is/theaters', {
-      method: 'GET',
-      headers: new Headers({
-        'x-access-token': token,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-export async function getUpcoming(token) {
-
-  try {
-    const response = await fetch('https://api.kvikmyndir.is/upcoming', {
-      method: 'GET',
-      headers: new Headers({
-        'x-access-token': token,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+export const { useGetMoviesQuery, useGetCinemasQuery, useGetUpcomingQuery } = apiService;

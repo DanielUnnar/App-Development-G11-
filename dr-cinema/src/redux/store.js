@@ -1,15 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import moviesReducer from './reducers/moviesReducer';
-import upcomingMoviesReducer from './reducers/upcomingMoviesReducer';
-import cinemasReducer from './reducers/cinemasReducer';
-import tokenReducer from './reducers/tokenReducer';
+import { apiService } from '../services/APIservice';
+
 
 export const appstore = configureStore({
     reducer: {
-      movies: moviesReducer,
-      upcomingMovies: upcomingMoviesReducer,
-      cinemas: cinemasReducer,
-      token: tokenReducer,
+      [apiService.reducerPath]: apiService.reducer,
     },
-    devTools: false,
+    middleware: getetDefaultMiddleware => getetDefaultMiddleware().concat(apiService.middleware)
   });

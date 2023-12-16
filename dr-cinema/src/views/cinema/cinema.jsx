@@ -7,7 +7,6 @@ import { setMovies } from '../../redux/reducers/moviesReducer'
 const windowWidth = Dimensions.get('window').width;
 
 export function CinemaDetails({navigation, route}) {
-    const { token } = useAuth();
     const { cinema } = route.params;
     const dispatch = useDispatch();
     const movies = useSelector((state) => state.movies);
@@ -16,8 +15,8 @@ export function CinemaDetails({navigation, route}) {
     useEffect(() => {
         const handleMovies = async () => {
           try {
-            const apimovies = await getMovies(token);
-            const filteredMovies = filterMovies(apimovies);
+            const data = getMovies();
+            const filteredMovies = filterMovies(data);
             dispatch(setMovies(filteredMovies));
           } catch (error) {
             console.error('Error:', error);
@@ -29,7 +28,7 @@ export function CinemaDetails({navigation, route}) {
         console.log(movies)
     
         return () => clearInterval(refreshInterval);
-      }, [dispatch, token]);
+      }, [dispatch]);
     
       function filterMovies(movies) {
         return movies.filter((movie) =>
